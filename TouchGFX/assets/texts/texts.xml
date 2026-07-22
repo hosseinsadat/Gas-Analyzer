@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.26.1">
+  <Languages>
+    <Language Id="GB" />
+  </Languages>
+  <Texts>
+    <TextGroup Id="Group1" />
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_DDGI" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">NO</Translation>
+      </Text>
+      <Text Id="__SingleUse_KH05" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">YES</Translation>
+      </Text>
+      <Text Id="__SingleUse_RL5Z" Alignment="Center" TypographyId="Typography1">
+        <Translation Language="GB">Are You Sure To Restore to&#10; Factory Configuration?</Translation>
+      </Text>
+      <Text Id="__SingleUse_DPH4" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">RESET FACTORY</Translation>
+      </Text>
+      <Text Id="__SingleUse_KSP1" Alignment="Left" TypographyId="Typography1">
+        <Translation Language="GB">Data Stored.</Translation>
+      </Text>
+      <Text Id="__SingleUse_J0GH" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">O2 Calibration</Translation>
+      </Text>
+      <Text Id="__SingleUse_DF1C" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">CO Calibration</Translation>
+      </Text>
+      <Text Id="__SingleUse_XAR2" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">CO2 Calibration</Translation>
+      </Text>
+      <Text Id="__SingleUse_7UW2" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">SSS - 311</Translation>
+      </Text>
+      <Text Id="__SingleUse_1RGX" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00.0</Translation>
+      </Text>
+      <Text Id="__SingleUse_4Q43" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">CO2 %: &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_3JSD" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">Fresh Air</Translation>
+      </Text>
+      <Text Id="__SingleUse_2RSF" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">Span Value</Translation>
+      </Text>
+      <Text Id="__SingleUse_KWWD" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">Zero in N2 </Translation>
+      </Text>
+      <Text Id="__SingleUse_ZZH6" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">Put Device Probe In N2 Gas Then after 1 min&#10; Start Zero, then put in measured Gas and Span Value.</Translation>
+      </Text>
+      <Text Id="__SingleUse_U0NS" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Span Cal</Translation>
+      </Text>
+      <Text Id="__SingleUse_0IJZ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Zero Cal</Translation>
+      </Text>
+      <Text Id="__SingleUse_2RBO" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00.0</Translation>
+      </Text>
+      <Text Id="__SingleUse_ESBX" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">Span %: &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_RMI8" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00.0</Translation>
+      </Text>
+      <Text Id="__SingleUse_7SPB" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">O2 % : &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_W60L" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00000</Translation>
+      </Text>
+      <Text Id="__SingleUse_DGF5" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">O2 Raw Value : &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_SIZB" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_0X9N" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">CO PPM : &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_LLDU" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Zero Cal</Translation>
+      </Text>
+      <Text Id="__SingleUse_7H7U" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Span Cal</Translation>
+      </Text>
+      <Text Id="__SingleUse_C543" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Span Cal</Translation>
+      </Text>
+      <Text Id="__SingleUse_J9TL" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Zero Cal</Translation>
+      </Text>
+      <Text Id="__SingleUse_MNBZ" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">Span Value</Translation>
+      </Text>
+      <Text Id="__SingleUse_J9XE" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">Zero in N2 </Translation>
+      </Text>
+      <Text Id="__SingleUse_FIXP" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">Put Device Probe In N2 Gas Then after 1 min&#10; Start Zero, then put in measured Gas and Span Value.</Translation>
+      </Text>
+      <Text Id="__SingleUse_R4L3" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_R07U" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">Span PPM : &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZWQ7" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00000</Translation>
+      </Text>
+      <Text Id="__SingleUse_U6AG" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">CO Raw Value : &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_FSHF" Alignment="Center" TypographyId="Small">
+        <Translation Language="GB">Put Device Probe In Fresh Air or N2 Gas &#10;Then after 1 min Start Correspoding Zero, &#10;then put in measured Gas and Span Value.</Translation>
+      </Text>
+      <Text Id="__SingleUse_1P04" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00.0</Translation>
+      </Text>
+      <Text Id="__SingleUse_WVPG" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Span Value : &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_27BV" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">Span Value</Translation>
+      </Text>
+      <Text Id="__SingleUse_K3TR" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">Zero in N2 </Translation>
+      </Text>
+      <Text Id="__SingleUse_FS80" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">Zero in Air</Translation>
+      </Text>
+      <Text Id="__SingleUse_VLRU" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00000</Translation>
+      </Text>
+      <Text Id="__SingleUse_D6JZ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">CO2 Live Value : &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_IUUS" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">%</Translation>
+      </Text>
+      <Text Id="__SingleUse_HL0Y" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00.0</Translation>
+      </Text>
+      <Text Id="__SingleUse_X4QZ" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_PKQV" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_GSBQ" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_6GK8" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_LYTF" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_D8X4" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_WI5O" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_YN59" Alignment="Center" TypographyId="Typography1">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_GPYV" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZKS9" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00</Translation>
+      </Text>
+      <Text Id="__SingleUse_HSEF" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">O2 %</Translation>
+      </Text>
+      <Text Id="__SingleUse_LK0V" Alignment="Right" TypographyId="Small">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_M9Q4" Alignment="Right" TypographyId="Small">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_22XJ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">CO ppm</Translation>
+      </Text>
+      <Text Id="__SingleUse_34VU" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">CO2 %</Translation>
+      </Text>
+      <Text Id="__SingleUse_NXFZ" Alignment="Right" TypographyId="Default">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_N8AG" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">PPM</Translation>
+      </Text>
+      <Text Id="__SingleUse_F9WS" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">%</Translation>
+      </Text>
+      <Text Id="__SingleUse_XL4R" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">PPM</Translation>
+      </Text>
+      <Text Id="__SingleUse_56ZE" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_NZBO" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Humidity</Translation>
+      </Text>
+      <Text Id="__SingleUse_FWZA" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">O2</Translation>
+      </Text>
+      <Text Id="__SingleUse_5EXY" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">probe Temp</Translation>
+      </Text>
+      <Text Id="__SingleUse_JGG8" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">CO</Translation>
+      </Text>
+      <Text Id="__SingleUse_ROL2" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">CO2</Translation>
+      </Text>
+      <Text Id="__SingleUse_565V" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_9EUZ" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_SSK5" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">000</Translation>
+      </Text>
+      <Text Id="__SingleUse_PI05" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">00.0</Translation>
+      </Text>
+      <Text Id="__SingleUse_LLMF" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0000</Translation>
+      </Text>
+      <Text Id="__SingleUse_HYFP" Alignment="Left" TypographyId="Typography2">
+        <Translation Language="GB">0000000</Translation>
+      </Text>
+      <Text Id="__SingleUse_QWYR" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_O2U5" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_3Q4B" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_WMJS" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_JASU" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_EHKM" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_8867" Alignment="Left" TypographyId="Typography2">
+        <Translation Language="GB">شرکت دانش بنیان</Translation>
+      </Text>
+      <Text Id="__SingleUse_DU4R" Alignment="Left" TypographyId="Typography1">
+        <Translation Language="GB">صدرا سیاوش شرق</Translation>
+      </Text>
+      <Text Id="__SingleUse_PO23" Alignment="Center" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_0TGL" Alignment="Center" TypographyId="Default">
+        <Translation Language="GB">Save</Translation>
+      </Text>
+      <Text Id="__SingleUse_0V9E" Alignment="Center" TypographyId="Large">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_AKGG" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">About</Translation>
+      </Text>
+      <Text Id="__SingleUse_J5V7" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">Adjust Clock</Translation>
+      </Text>
+      <Text Id="__SingleUse_ET50" Alignment="Center" TypographyId="Typography2">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_I5RD" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Warming up Sensors...</Translation>
+      </Text>
+      <Text Id="__SingleUse_AS1N" Alignment="Left" TypographyId="Typography2">
+        <Translation Language="GB">شرکت دانش بنیان</Translation>
+      </Text>
+      <Text Id="__SingleUse_4GFS" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">SSS - 311</Translation>
+      </Text>
+      <Text Id="__SingleUse_B7GG" Alignment="Left" TypographyId="Typography1">
+        <Translation Language="GB">صدرا سیاوش شرق</Translation>
+      </Text>
+    </TextGroup>
+  </Texts>
+  <Typographies>
+    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WidgetWildcardCharacters="-., 0123456789" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="Large" Font="verdana.ttf" Size="36" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WidgetWildcardCharacters="-., 0123456789" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="Typography1" Font="segoeuib.ttf" Size="28" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WidgetWildcardCharacters="0123456789 :APM" WildcardCharacterRanges="0x20-0x7E" />
+    <Typography Id="Typography2" Font="segoeui.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WidgetWildcardCharacters="0123456789 :APM" WildcardCharacterRanges="0x20-0x7E" />
+  </Typographies>
+</TextDatabase>
