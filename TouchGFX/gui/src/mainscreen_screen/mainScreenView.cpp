@@ -66,7 +66,18 @@ txtProbe.invalidate();
 
 }
 void mainScreenView::handleTickEvent(){
+#ifndef SIMULATOR
+	static uint16_t counter = 0;
 
+	    counter++;
+
+	    if(counter >= 60)
+	    {
+	        counter = 0;
+
+	        presenter->updateEEPROMStatus();
+	    }
+#endif
 
 }
 

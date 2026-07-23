@@ -4,7 +4,7 @@
 #ifndef SIMULATOR
 #include "sensor_data.h"
 #include "stm32h7xx_hal.h"
-
+#include "ee_test.h"
 extern RTC_HandleTypeDef hrtc;
 extern RTC_TimeTypeDef RTC_Time;
 extern RTC_DateTypeDef RTC_Date;
@@ -81,4 +81,8 @@ void Model::tick()
     modelListener->onCO2Updated(650.0f);
     modelListener->onProbeUpdated(26.5f);
 #endif
+}
+bool Model::getEEPROMStatus()
+{
+    return EEPROM_OK;
 }

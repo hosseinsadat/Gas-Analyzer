@@ -29,6 +29,7 @@ public:
     void start_Transmitte();
     void startLogger();
 
+    void setEEPROMStatus(bool ok);
 
 
 protected:

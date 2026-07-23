@@ -38,9 +38,10 @@
 
 #include "config.h"
 
-#include "k33.h"
 #include "LMP91000.h"
 
+#include "at24cxx.h"
+#include <stdbool.h>
 
 
 /* USER CODE END Includes */
@@ -71,6 +72,8 @@ uint8_t o2_data[2];
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 extern I2C_HandleTypeDef hi2c2;
+volatile bool EEPROM_OK = false;
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -128,7 +131,7 @@ typedef struct
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-K33_HandleTypeDef k33;
+//K33_HandleTypeDef k33;
 uint16_t rawCO,rawO2 ;
 
 

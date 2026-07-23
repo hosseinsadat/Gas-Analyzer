@@ -33,7 +33,7 @@ public:
      void onProbeUpdated(float probe_temp);
      void updateTime(uint8_t hour,uint8_t minute,uint8_t second);
 
-
+     void updateEEPROMStatus();
 private:
     mainScreenPresenter();
 

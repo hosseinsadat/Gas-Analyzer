@@ -21,29 +21,15 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
-#include "k33.h"
-
-extern K33_HandleTypeDef k33;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-    if (huart == k33.huart)
-    {
-#if (__DCACHE_PRESENT == 1U)
-        /* rxBuf is 32-byte aligned */
-     //   SCB_InvalidateDCache_by_Addr((uint32_t *)k33.rxBuf, 32);
-#endif
 
-     //   K33_UART_RxCpltCallback(&k33);
-    }
 }
 
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
-    if (huart == k33.huart)
-    {
-        HAL_UART_AbortReceive(huart);
-    }
+
 }
 
 /* USER CODE END 0 */

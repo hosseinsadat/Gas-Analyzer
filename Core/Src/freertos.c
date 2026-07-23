@@ -30,20 +30,23 @@
 #include "sensor_data.h"
 #include "sht22.h"   /* make sure this header exists and declares SHT22_t and SHT22_Read / SHT22_Init */
 #include "LMP91000.h"
-#include "k33.h"
+//#include "k33.h"
 #include "gas_sensor.h"
 #include "gas_calibration.h"
 #include <string.h>
 #include "ADS1015_ADS1115.h"
 #include "Max66.h"
 
-
+#include "ee_test.h"
+#include "k33_config.h"
+#include "k33_modbus.h"
+#include "k33_sensor.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 extern I2C_HandleTypeDef hi2c2;
-extern K33_HandleTypeDef k33;
+//extern K33_HandleTypeDef k33;
 extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart1;
 extern SPI_HandleTypeDef hspi6;
@@ -79,25 +82,6 @@ uint8_t o2_data[2];
 
 ADS1xx5_I2C ads;
 
-typedef struct {
-    float value;
-    float alpha;
-    uint8_t initialized;
-} EMA_Filter_t;
-
-static EMA_Filter_t co_filter = { .alpha = 0.05f };
-static EMA_Filter_t o2_filter = { .alpha = 0.05f };
-
-static float EMA_Update(EMA_Filter_t *f, float input)
-{
-    if (!f->initialized) {
-        f->value = input;
-        f->initialized = 1;
-    } else {
-        f->value = f->alpha * input + (1.0f - f->alpha) * f->value;
-    }
-    return f->value;
-}
 
 
 
@@ -427,22 +411,22 @@ void StartSensorTask_I2C(void *argument)
 	  	  	        osMutexRelease(sensorDataMutexHandle);
 
 
-	  	  	        sprintf(uart_buffer, "Temp: %.1f C | Hum: %.1f %%  \r\n",temp , hum);
-	  	  	        HAL_UART_Transmit(&huart1, (uint8_t*)uart_buffer, strlen(uart_buffer), 100);
+	  	  	       // sprintf(uart_buffer, "Temp: %.1f C | Hum: %.1f %%  \r\n",temp , hum);
+	  	  	     //   HAL_UART_Transmit(&huart1, (uint8_t*)uart_buffer, strlen(uart_buffer), 100);
 	  	  	      }
 	  	  	      else
 	  	  	      {
-	  	  	        HAL_UART_Transmit(&huart1, (uint8_t*)"Mutex 1 Timeout!\r\n", 16, 100);
+	  	  	    //   HAL_UART_Transmit(&huart1, (uint8_t*)"Mutex 1 Timeout!\r\n", 16, 100);
 	  	  	      }
 
 	    if (osMutexAcquire(i2cBusMutexHandle, pdMS_TO_TICKS(200)) == osOK) {
 	            ch0 = ADSreadADC_SingleEnded(&ads, 0);
-	            osDelay(20);  /* تاخیر کوتاه بین کانال‌ها */
+	            osDelay(20);
 	            ch1 = ADSreadADC_SingleEnded(&ads, 1);
 	            osMutexRelease(i2cBusMutexHandle);
 	        }
 
-	        /* ذخیره با sensorDataMutex */
+
 	        if (osMutexAcquire(sensorDataMutexHandle, pdMS_TO_TICKS(50)) == osOK) {
 	            gSensorData.rawCO  = ch0;
 
@@ -483,7 +467,7 @@ void StartSensorTask_I2C(void *argument)
 
 
       /* -------- Proper sampling period -------- */
-      osDelay(500);   // 1 Hz (perfect)
+      osDelay(pdMS_TO_TICKS(500));   // 1 Hz (perfect)
       }
   /* USER CODE END StartSensorTask_I2C */
 }
@@ -500,12 +484,21 @@ void StartSensorTask_UART(void *argument)
   /* USER CODE BEGIN StartSensorTask_UART */
   /* Infinite loop */
 
+	K33_Modbus_Init(&huart4);
+	K33_Sensor_Init();
 
 
-	 K33_Init(&k33, &huart4);
 
 	    for (;;)
 	    {
+
+
+
+
+
+
+
+	    	/*
 	    	uint16_t co2_val = K33_ReadCO2(&k33);
 
 	        osDelay(50);  // wait for DMA
@@ -516,8 +509,8 @@ void StartSensorTask_UART(void *argument)
 	            g_co2_x10 = (uint32_t)( gSensorData.co2_ppm * 10.0f);
 	            osMutexRelease(sensorDataMutexHandle);
 
-
-	        osDelay(2000); // K33 recommended interval
+*/
+	        osDelay(pdMS_TO_TICKS(2000)); // K33 recommended interval
 	    }
   /* USER CODE END StartSensorTask_UART */
 }
@@ -543,8 +536,17 @@ void StartSensorTask_SPI(void *argument)
   {
 
 
+	  //////////TEST EEPROM//////////////
 
-    osDelay(500);
+	  if (osMutexAcquire(sensorDataMutexHandle, 500) == osOK)
+	  	  	  	      {
+		  	  	  	  	  EEPROM_Test();
+
+
+	  	  	  	        osMutexRelease(sensorDataMutexHandle);
+	  	  	  	      }
+
+    osDelay(pdMS_TO_TICKS(5000));
   }
   /* USER CODE END StartSensorTask_SPI */
 }

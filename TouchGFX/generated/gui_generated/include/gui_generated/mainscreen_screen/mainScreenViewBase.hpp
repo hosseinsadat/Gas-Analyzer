@@ -16,6 +16,8 @@
 #include <touchgfx/containers/SlideMenu.hpp>
 #include <touchgfx/widgets/ToggleButton.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/canvas/Circle.hpp>
+#include <touchgfx/widgets/canvas/PainterRGB565.hpp>
 
 class mainScreenViewBase : public touchgfx::View<mainScreenPresenter>
 {
@@ -65,6 +67,8 @@ protected:
     touchgfx::TextArea textArea1_1_1_2_2_1_1;
     touchgfx::TextArea textArea1_1_1_2_2_1_1_1;
     touchgfx::TextAreaWithOneWildcard txtCO2_percent;
+    touchgfx::Circle circleEEprom;
+    touchgfx::PainterRGB565 circleEEpromPainter;
 
     /*
      * Wildcard Buffers
@@ -85,6 +89,12 @@ protected:
     touchgfx::Unicode::UnicodeChar txtCO2_percentBuffer[TXTCO2_PERCENT_SIZE];
 
 private:
+
+    /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 7200;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 
     /*
      * Callback Declarations

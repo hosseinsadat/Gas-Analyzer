@@ -148,6 +148,7 @@
       },
       {
         "Name": "mainScreen",
+        "CanvasBufferSize": 7200,
         "Components": [
           {
             "Type": "Image",
@@ -596,6 +597,24 @@
               "UseBuffer": true,
               "BufferSize": 10
             }
+          },
+          {
+            "Type": "Circle",
+            "Name": "circleEEprom",
+            "X": 14,
+            "Y": 238,
+            "Width": 27,
+            "Height": 26,
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "CenterX": 10.0,
+            "CenterY": 10.0,
+            "Radius": 10.0,
+            "EndAngle": 360.0,
+            "CapPrecision": "Butt"
           }
         ],
         "Interactions": [

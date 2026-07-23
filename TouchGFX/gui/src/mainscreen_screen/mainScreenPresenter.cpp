@@ -34,3 +34,7 @@ void mainScreenPresenter::onProbeUpdated(float probe_temp){
 void mainScreenPresenter::updateTime(uint8_t hour,uint8_t minute,uint8_t second){
 	view.updateTime(hour,minute,second);
 }
+void mainScreenPresenter::updateEEPROMStatus()
+{
+    view.setEEPROMStatus(model->getEEPROMStatus());
+}

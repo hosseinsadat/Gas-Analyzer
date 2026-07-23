@@ -8,6 +8,7 @@ public:
 	Model();
 	void tick();
 
+	bool getEEPROMStatus();
 	void setGasValues(float co_ppm, float o2_percent);
 
 	void bind(ModelListener *listener) {
