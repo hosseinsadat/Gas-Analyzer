@@ -41,7 +41,7 @@ void Calib_ResetCO2(EEPROM_CalibData_t *data)
     data->co2.ref_zero = 0.0f;
     data->co2.ref_span = 10.0f;
     data->co2.raw_zero = 0.0f;
-    data->co2.raw_span = 100000.0f;
+    data->co2.raw_span = 10.0f;
     Calib_CalculateSlopeOffset(&data->co2);
 }
 
