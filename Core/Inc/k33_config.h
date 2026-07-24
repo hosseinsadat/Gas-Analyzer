@@ -40,7 +40,7 @@ extern "C" {
 #define K33_COMM_IT          2
 #define K33_COMM_DMA_IDLE    3
 
-#define K33_COMM_MODE        K33_COMM_DMA_IDLE   /* <-- choose one of the three above */
+#define K33_COMM_MODE        K33_COMM_POLLING   /* <-- choose one of the three above */
 
 /* =====================================================================
  * 2) Modbus / bus parameters

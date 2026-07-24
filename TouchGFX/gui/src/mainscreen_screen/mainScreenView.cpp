@@ -1,5 +1,6 @@
 #include <gui/mainscreen_screen/mainScreenView.hpp>
 #include <touchgfx/hal/Types.hpp>
+#include <touchgfx/Color.hpp>
 
 
 mainScreenView::mainScreenView()
@@ -10,11 +11,18 @@ mainScreenView::mainScreenView()
 void mainScreenView::setupScreen()
 {
     mainScreenViewBase::setupScreen();
+    presenter->updateEEPROMStatus();
 }
 
 void mainScreenView::tearDownScreen()
 {
     mainScreenViewBase::tearDownScreen();
+}
+
+void mainScreenView::setEEPROMStatus(bool status)
+{
+    circleEEpromPainter.setColor(status ? touchgfx::Color::getColorFromRGB(0, 255, 0) : touchgfx::Color::getColorFromRGB(255, 0, 0));
+    circleEEprom.invalidate();
 }
 
 

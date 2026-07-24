@@ -41,8 +41,8 @@ float CO_CalcPPM(int16_t adc_raw)
 
 float CO2_CalcPercent(uint16_t raw_co2)
 {
-    /* Convert raw value from K33 sensor (it divides by 100 to get percent) */
-    float pct = Calib_Apply(&g_CalibData.co2, (float)raw_co2 / 100.0f);
+    /* Calculate percent from raw register reading using CO2 calibration parameters */
+    float pct = Calib_Apply(&g_CalibData.co2, (float)raw_co2);
 
     /* Apply boundary checks for CO2 sensor (0 to 30.0%) */
     if (pct < 0.0f)  pct = 0.0f;
