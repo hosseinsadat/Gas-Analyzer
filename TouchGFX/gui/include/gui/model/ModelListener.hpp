@@ -19,6 +19,10 @@ public:
    // virtual void onWarmupUpdate(float o2_pct);
     virtual void updateTime(uint8_t hour,uint8_t minute,uint8_t second){}
 
+    virtual void onCOCalDataUpdated(int16_t raw_co, float cal_co) {}
+    virtual void onO2CalDataUpdated(int16_t raw_o2, float cal_o2) {}
+    virtual void onCO2CalDataUpdated(uint16_t raw_co2, float cal_co2) {}
+
 
     void bind(Model* m)
     {

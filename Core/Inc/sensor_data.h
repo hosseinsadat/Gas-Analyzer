@@ -26,6 +26,7 @@ typedef struct {
 
 	float co2_p;
 	uint16_t co2_ppm;
+	uint16_t rawCO2;
 
 	float probe_temp;
 

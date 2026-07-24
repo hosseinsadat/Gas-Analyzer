@@ -33,6 +33,7 @@
 //#include "k33.h"
 #include "gas_sensor.h"
 #include "gas_calibration.h"
+#include "slope_offset_calib.h"
 #include <string.h>
 #include "ADS1015_ADS1115.h"
 #include "Max66.h"
@@ -378,18 +379,20 @@ void StartSensorTask_I2C(void *argument)
 
 	 extern osMutexId_t i2cBusMutexHandle;
 
-		ADS1115(&ads, &hi2c2, ADS_ADDR_GND);
+        GasCalibration_Init();
 
-		   SHT2x_Init(&hi2c2);
-		   SHT2x_SoftReset();
-		   osDelay(20);
+        ADS1115(&ads, &hi2c2, ADS_ADDR_GND);
 
-		   InitThermocouple1();
-		   char uart_buffer[100];
-		   float temp, hum;
-		   uint16_t ch0, ch1;
+        SHT2x_Init(&hi2c2);
+        SHT2x_SoftReset();
+        osDelay(20);
 
-		   float o2_pct , co_ppm ;
+        InitThermocouple1();
+        char uart_buffer[100];
+        float temp, hum;
+        uint16_t ch0 = 0, ch1 = 0;
+
+        float o2_pct , co_ppm ;
 
 
   for(;;)
@@ -404,19 +407,8 @@ void StartSensorTask_I2C(void *argument)
 
 	  	  	        gSensorData.temperature = temp;
 	  	  	        gSensorData.humidity    = hum;
-	  	  	        /*
-	  	  	        gSensorData.rawCO = rawCO;
-	  				gSensorData.rawO2 =rawO2;
-	  				*/
-	  	  	        osMutexRelease(sensorDataMutexHandle);
 
-
-	  	  	       // sprintf(uart_buffer, "Temp: %.1f C | Hum: %.1f %%  \r\n",temp , hum);
-	  	  	     //   HAL_UART_Transmit(&huart1, (uint8_t*)uart_buffer, strlen(uart_buffer), 100);
-	  	  	      }
-	  	  	      else
-	  	  	      {
-	  	  	    //   HAL_UART_Transmit(&huart1, (uint8_t*)"Mutex 1 Timeout!\r\n", 16, 100);
+			        osMutexRelease(sensorDataMutexHandle);
 	  	  	      }
 
 	    if (osMutexAcquire(i2cBusMutexHandle, pdMS_TO_TICKS(200)) == osOK) {
@@ -429,19 +421,18 @@ void StartSensorTask_I2C(void *argument)
 
 	        if (osMutexAcquire(sensorDataMutexHandle, pdMS_TO_TICKS(50)) == osOK) {
 	            gSensorData.rawCO  = ch0;
-
 	            gSensorData.rawO2  = ch1;
-	             o2_pct =O2_CalcPercent(gSensorData.rawO2 );
-				 co_ppm =gSensorData.rawCO;// CO_CalcPPM( gSensorData.rawCO);
 
-				g_co_x10  = (int16_t)(co_ppm  * 10.0f);
+	            co_ppm = CO_CalcPPM(gSensorData.rawCO);
+	            o2_pct = O2_CalcPercent(gSensorData.rawO2);
+
+	            gSensorData.co_ppm = co_ppm;
+	            gSensorData.o2_percent = o2_pct;
+
+	            g_co_x10  = (int16_t)(co_ppm  * 10.0f);
 	            g_o2_x10  = (int16_t)(o2_pct  * 10.0f);
 
-
-
 	            osMutexRelease(sensorDataMutexHandle);
-
-
 	        }
 
 
@@ -487,29 +478,25 @@ void StartSensorTask_UART(void *argument)
 	K33_Modbus_Init(&huart4);
 	K33_Sensor_Init();
 
-
-
 	    for (;;)
 	    {
+	        K33_CO2Reading_t co2_read;
+	        K33_Status_t st = K33_ReadCO2(&co2_read);
+	        if (st == K33_OK)
+	        {
+	            float co2_pct = CO2_CalcPercent(co2_read.raw);
 
+	            if (osMutexAcquire(sensorDataMutexHandle, pdMS_TO_TICKS(50)) == osOK)
+	            {
+	                gSensorData.rawCO2 = co2_read.raw;
+	                gSensorData.co2_p = co2_pct;
+	                gSensorData.co2_ppm = (uint16_t)(co2_pct * 10000.0f);
+	                g_co2_x10 = (uint32_t)(gSensorData.co2_ppm * 10.0f);
 
+	                osMutexRelease(sensorDataMutexHandle);
+	            }
+	        }
 
-
-
-
-
-	    	/*
-	    	uint16_t co2_val = K33_ReadCO2(&k33);
-
-	        osDelay(50);  // wait for DMA
-
-
-	            osMutexAcquire(sensorDataMutexHandle, osWaitForever);
-	            gSensorData.co2_ppm = (float)co2_val;
-	            g_co2_x10 = (uint32_t)( gSensorData.co2_ppm * 10.0f);
-	            osMutexRelease(sensorDataMutexHandle);
-
-*/
 	        osDelay(pdMS_TO_TICKS(2000)); // K33 recommended interval
 	    }
   /* USER CODE END StartSensorTask_UART */
