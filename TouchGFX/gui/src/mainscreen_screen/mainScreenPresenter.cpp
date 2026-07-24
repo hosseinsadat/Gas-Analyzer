@@ -36,5 +36,5 @@ void mainScreenPresenter::updateTime(uint8_t hour,uint8_t minute,uint8_t second)
 }
 void mainScreenPresenter::updateEEPROMStatus()
 {
-   // view.setEEPROMStatus(model->getEEPROMStatus());
+    view.setEEPROMStatus(model->getEEPROMStatus());
 }
