@@ -90,7 +90,7 @@ void Model::calibrateCO2Zero()
     uint16_t raw = gSensorData.rawCO2;
     osMutexRelease(sensorDataMutexHandle);
 
-    g_CalibData.co2.raw_zero = (float)raw / 100.0f;
+    g_CalibData.co2.raw_zero = (float)raw / 1000.0f;
     g_CalibData.co2.ref_zero = 0.0f;
     Calib_CalculateSlopeOffset(&g_CalibData.co2);
     Calib_SaveToEEPROM(&g_CalibData);
@@ -104,7 +104,7 @@ void Model::calibrateCO2Span(float target_pct)
     uint16_t raw = gSensorData.rawCO2;
     osMutexRelease(sensorDataMutexHandle);
 
-    g_CalibData.co2.raw_span = (float)raw / 100.0f;
+    g_CalibData.co2.raw_span = (float)raw / 1000.0f;
     g_CalibData.co2.ref_span = target_pct;
     Calib_CalculateSlopeOffset(&g_CalibData.co2);
     Calib_SaveToEEPROM(&g_CalibData);
