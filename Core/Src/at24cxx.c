@@ -4,6 +4,7 @@
 #if (_EEPROM_USE_FREERTOS == 1)
 #include "cmsis_os.h"
 #define at24_delay(x)   osDelay(x)
+extern osMutexId_t i2cBusMutexHandle;
 #else
 #define at24_delay(x)   HAL_Delay(x)
 #endif
@@ -25,13 +26,32 @@ static uint8_t at24_lock = 0;
   */
 bool at24_isConnected(void)
 {
+  #if (_EEPROM_USE_FREERTOS == 1)
+  if (i2cBusMutexHandle != NULL)
+  {
+    if (osMutexAcquire(i2cBusMutexHandle, 500) != osOK)
+    {
+      return false;
+    }
+  }
+  #endif
+
   #if (_EEPROM_USE_WP_PIN==1)
   HAL_GPIO_WritePin(_EEPROM_WP_GPIO,_EEPROM_WP_PIN,GPIO_PIN_SET);
   #endif
+
+  bool res = false;
   if (HAL_I2C_IsDeviceReady(&_EEPROM_I2C, _EEPROM_ADDRESS, 2, 100) == HAL_OK)
-    return true;
-  else
-    return false;	
+    res = true;
+
+  #if (_EEPROM_USE_FREERTOS == 1)
+  if (i2cBusMutexHandle != NULL)
+  {
+    osMutexRelease(i2cBusMutexHandle);
+  }
+  #endif
+
+  return res;
 }
 
 /**
@@ -44,8 +64,23 @@ bool at24_isConnected(void)
   */
 bool at24_write(uint16_t address, uint8_t *data, size_t len, uint32_t timeout)
 {
+  #if (_EEPROM_USE_FREERTOS == 1)
+  if (i2cBusMutexHandle != NULL)
+  {
+    if (osMutexAcquire(i2cBusMutexHandle, timeout) != osOK)
+    {
+      return false;
+    }
+  }
+  #endif
+
   if (at24_lock == 1)
+  {
+    #if (_EEPROM_USE_FREERTOS == 1)
+    if (i2cBusMutexHandle != NULL) osMutexRelease(i2cBusMutexHandle);
+    #endif
     return false;
+  }
 	
   at24_lock = 1; 
   uint16_t w;
@@ -55,6 +90,7 @@ bool at24_write(uint16_t address, uint8_t *data, size_t len, uint32_t timeout)
   HAL_GPIO_WritePin(_EEPROM_WP_GPIO, _EEPROM_WP_PIN,GPIO_PIN_RESET);
   #endif
 	
+  bool success = true;
   while (1)
   {
 		//HAL_IWDG_Refresh(&_EEPROM_IWDG);
@@ -83,12 +119,14 @@ bool at24_write(uint16_t address, uint8_t *data, size_t len, uint32_t timeout)
         HAL_GPIO_WritePin(_EEPROM_WP_GPIO, _EEPROM_WP_PIN, GPIO_PIN_SET);
         #endif
         at24_lock = 0;
-        return true;
+        success = true;
+        break;
       }
       if (HAL_GetTick() - startTime >= timeout) 
       {
         at24_lock = 0;
-        return false;
+        success = false;
+        break;
       }
     }
     else
@@ -97,9 +135,19 @@ bool at24_write(uint16_t address, uint8_t *data, size_t len, uint32_t timeout)
       HAL_GPIO_WritePin(_EEPROM_WP_GPIO, _EEPROM_WP_PIN, GPIO_PIN_SET);
       #endif
       at24_lock = 0;
-      return false;
+      success = false;
+      break;
     }
   }
+
+  #if (_EEPROM_USE_FREERTOS == 1)
+  if (i2cBusMutexHandle != NULL)
+  {
+    osMutexRelease(i2cBusMutexHandle);
+  }
+  #endif
+
+  return success;
 }
 
 /**
@@ -112,13 +160,30 @@ bool at24_write(uint16_t address, uint8_t *data, size_t len, uint32_t timeout)
   */
 bool at24_read(uint16_t address, uint8_t *data, size_t len, uint32_t timeout)
 {
-	//HAL_IWDG_Refresh(&_EEPROM_IWDG);
+  #if (_EEPROM_USE_FREERTOS == 1)
+  if (i2cBusMutexHandle != NULL)
+  {
+    if (osMutexAcquire(i2cBusMutexHandle, timeout) != osOK)
+    {
+      return false;
+    }
+  }
+  #endif
+
   if (at24_lock == 1)
+  {
+    #if (_EEPROM_USE_FREERTOS == 1)
+    if (i2cBusMutexHandle != NULL) osMutexRelease(i2cBusMutexHandle);
+    #endif
     return false;
+  }
+
   at24_lock = 1;
   #if (_EEPROM_USE_WP_PIN==1)
   HAL_GPIO_WritePin(_EEPROM_WP_GPIO, _EEPROM_WP_PIN, GPIO_PIN_SET);
   #endif
+
+  bool success = false;
   #if ((_EEPROM_SIZE_KBIT==1) || (_EEPROM_SIZE_KBIT==2))
   if (HAL_I2C_Mem_Read(&_EEPROM_I2C, _EEPROM_ADDRESS, address, I2C_MEMADD_SIZE_8BIT, data, len, 100) == HAL_OK)
   #elif (_EEPROM_SIZE_KBIT == 4)
@@ -132,13 +197,22 @@ bool at24_read(uint16_t address, uint8_t *data, size_t len, uint32_t timeout)
   #endif
   {
     at24_lock = 0;
-    return true;
+    success = true;
   }
   else
   {
     at24_lock = 0;
-    return false;	
+    success = false;
   }    
+
+  #if (_EEPROM_USE_FREERTOS == 1)
+  if (i2cBusMutexHandle != NULL)
+  {
+    osMutexRelease(i2cBusMutexHandle);
+  }
+  #endif
+
+  return success;
 }
 
 /**

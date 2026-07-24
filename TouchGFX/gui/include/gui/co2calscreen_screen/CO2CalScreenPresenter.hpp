@@ -27,6 +27,12 @@ public:
 
     virtual ~CO2CalScreenPresenter() {}
 
+    virtual void onCO2CalDataUpdated(uint16_t raw_co2, float cal_co2) override;
+
+    void co2ZeroCalibrate();
+    void co2SpanCalibrate(float target_pct);
+    void co2ResetCalibrate();
+
 private:
     CO2CalScreenPresenter();
 

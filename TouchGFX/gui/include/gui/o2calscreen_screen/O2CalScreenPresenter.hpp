@@ -27,6 +27,12 @@ public:
 
     virtual ~O2CalScreenPresenter() {}
 
+    virtual void onO2CalDataUpdated(int16_t raw_o2, float cal_o2) override;
+
+    void o2ZeroCalibrate();
+    void o2SpanCalibrate(float target_pct);
+    void o2ResetCalibrate();
+
 private:
     O2CalScreenPresenter();
 

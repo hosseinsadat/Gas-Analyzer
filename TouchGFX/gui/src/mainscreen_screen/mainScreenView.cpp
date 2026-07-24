@@ -32,28 +32,28 @@ void mainScreenView::setGasHumidity(float hum)
 }
 void mainScreenView::setGasValues(float co_ppm, float o2_percent)
 {
-    Unicode::snprintfFloat(gasCoBuffer, TXTCO_SIZE, "%.0f", (uint16_t)co_ppm);
+    Unicode::snprintfFloat(gasCoBuffer, TXTCO_SIZE, "%.0f", co_ppm);
     txtCO.setWildcard(gasCoBuffer);
     txtCO.invalidate();
 
-    Unicode::snprintfFloat(gasO2Buffer, TXTO2_SIZE, "%.1f",(uint16_t) o2_percent);
+    Unicode::snprintfFloat(gasO2Buffer, TXTO2_SIZE, "%.1f", o2_percent);
     txtO2.setWildcard(gasO2Buffer);
     txtO2.invalidate();
 }
 void mainScreenView::setCO2Value(float co2_ppm)
 {
 	if(co2_ppm>0){
-    Unicode::snprintfFloat(gasCO2Buffer, TXTCO2_SIZE, "%.0f", (uint16_t)co2_ppm);
+    Unicode::snprintfFloat(gasCO2Buffer, TXTCO2_SIZE, "%.0f", co2_ppm);
     txtCO2.setWildcard(gasCO2Buffer);
     txtCO2.invalidate();
     Unicode::snprintfFloat(txtCO2_percentBuffer, TXTCO2_PERCENT_SIZE, "%.1f", co2_ppm/10000.0f);
        txtCO2_percent.setWildcard(txtCO2_percentBuffer);
        txtCO2_percent.invalidate();
 	}else{
-		Unicode::snprintfFloat(gasCO2Buffer, TXTCO2_SIZE, "%.0f", 0.0);
+		Unicode::snprintfFloat(gasCO2Buffer, TXTCO2_SIZE, "%.0f", 0.0f);
 		    txtCO2.setWildcard(gasCO2Buffer);
 		    txtCO2.invalidate();
-		    Unicode::snprintfFloat(txtCO2_percentBuffer, TXTCO2_PERCENT_SIZE, "%.1f", 0.0);
+		    Unicode::snprintfFloat(txtCO2_percentBuffer, TXTCO2_PERCENT_SIZE, "%.1f", 0.0f);
 		       txtCO2_percent.setWildcard(txtCO2_percentBuffer);
 		       txtCO2_percent.invalidate();
 	}
