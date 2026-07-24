@@ -27,6 +27,12 @@ public:
 
     virtual ~COCalScreenPresenter() {}
 
+    virtual void onCOCalDataUpdated(int16_t raw_co, float cal_co) override;
+
+    void coZeroCalibrate();
+    void coSpanCalibrate(float target_ppm);
+    void coResetCalibrate();
+
 private:
     COCalScreenPresenter();
 

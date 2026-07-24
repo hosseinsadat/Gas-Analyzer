@@ -1,15 +1,15 @@
-/*
- * gas_sensor.h
- *
- *  Created on: Dec 20, 2025
- *      Author: Manufact
+/**
+ ******************************************************************************
+ * @file    gas_sensor.h
+ * @brief   Header file for gas sensor data handling and processing task.
+ ******************************************************************************
  */
-
 #ifndef INC_GAS_SENSOR_H_
 #define INC_GAS_SENSOR_H_
 
-
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdint.h>
 
@@ -21,15 +21,24 @@ typedef struct
     float humidity;
 } GasSensorData_t;
 
+/**
+ * @brief  Initialize the gas sensor module.
+ */
 void GasSensor_Init(void);
+
+/**
+ * @brief  Update the gas sensor values.
+ */
 void GasSensor_Update(void);
+
+/**
+ * @brief  Retrieve the latest gas sensor data.
+ * @retval Latest GasSensorData_t structure.
+ */
 GasSensorData_t GasSensor_GetData(void);
 
-/* Calibration triggers */
-void GasSensor_RequestCOZero(void);
-void GasSensor_RequestCOSpan(float known_ppm);
-void GasSensor_RequestO2Zero(void);
-uint8_t O2_WarmupProgress(float o2_pct);
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* INC_GAS_SENSOR_H_ */

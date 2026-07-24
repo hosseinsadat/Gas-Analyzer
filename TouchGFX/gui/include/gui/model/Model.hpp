@@ -15,9 +15,18 @@ public:
 		modelListener = listener;
 	}
 
-	//span
+	// Calibration functions
+	void calibrateCOZero();
+	void calibrateCOSpan(float target_ppm);
+	void calibrateO2Zero();
+	void calibrateO2Span(float target_pct);
+	void calibrateCO2Zero();
+	void calibrateCO2Span(float target_pct);
 
-	void saveCOSpan(int raw, int target);
+	// Reset Calibration
+	void resetCOCal();
+	void resetO2Cal();
+	void resetCO2Cal();
 
 protected:
 	ModelListener *modelListener;
