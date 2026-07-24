@@ -36,11 +36,11 @@ float O2_CalcPercent(int16_t adc_raw);
 float CO_CalcPPM(int16_t adc_raw);
 
 /**
- * @brief  Calculate CO2 percentage from raw CO2 register reading using CO2 calibration data.
- * @param  raw_co2 Raw K33 CO2 reading.
+ * @brief  Calculate CO2 percentage from uncalibrated CO2 percent using CO2 calibration data.
+ * @param  uncal_pct Uncalibrated CO2 percentage.
  * @retval Calibrated CO2 percentage.
  */
-float CO2_CalcPercent(uint16_t raw_co2);
+float CO2_CalcPercent(float uncal_pct);
 
 #ifdef __cplusplus
 }

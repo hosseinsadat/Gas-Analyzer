@@ -484,7 +484,7 @@ void StartSensorTask_UART(void *argument)
 	        K33_Status_t st = K33_ReadCO2(&co2_read);
 	        if (st == K33_OK)
 	        {
-	            float co2_pct = CO2_CalcPercent(co2_read.raw);
+	            float co2_pct = CO2_CalcPercent(co2_read.value);
 
 	            if (osMutexAcquire(sensorDataMutexHandle, pdMS_TO_TICKS(50)) == osOK)
 	            {

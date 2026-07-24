@@ -63,7 +63,7 @@ extern "C" {
  * then set the divisor below. K33_ReadCO2() always returns raw AND the
  * scaled value so you can sanity-check this on first bring-up.
  * ===================================================================== */
-#define K33_CO2_RAW_DIVISOR        100.0f   /* raw_register / DIVISOR = physical unit (verify!) */
+#define K33_CO2_RAW_DIVISOR        1000.0f   /* raw_register / DIVISOR = physical unit (verify!) */
 #define K33_CO2_UNIT_IS_PERCENT    1        /* 1 = result is %CO2, 0 = result is ppm */
 
 /* =====================================================================
