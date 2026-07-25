@@ -11,6 +11,7 @@ void K33_Init(K33_HandleTypeDef *dev, UART_HandleTypeDef *huart)
     dev->lastPPM = 0;
 }
 
+<<<<<<< Updated upstream
 uint16_t K33_ReadCO2(K33_HandleTypeDef *dev)
 {
     uint8_t rxBuffer[7] = {0};
