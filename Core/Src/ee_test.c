@@ -49,6 +49,9 @@ void EEPROM_Test(void)
     printf("Write OK\r\n");
     EEPROM_OK = true;
 
+    /* Wait for the EEPROM's internal write cycle to complete (typically 10ms max) */
+    osDelay(15);
+
     if(!at24_read(0x0000,rx,sizeof(rx),1000))
     {
         printf("Read Failed\r\n");
