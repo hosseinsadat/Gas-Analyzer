@@ -79,7 +79,7 @@ void mainScreenView::handleTickEvent(){
 
 	    counter++;
 
-	    if(counter >= 60)
+	    if(counter >= 300) // Check EEPROM status every 5 seconds (60 fps * 5)
 	    {
 	        counter = 0;
 
