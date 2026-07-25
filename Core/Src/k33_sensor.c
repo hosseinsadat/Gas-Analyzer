@@ -5,6 +5,9 @@
  */
 #include <string.h>
 #include "k33_sensor.h"
+#include "stm32h7xx_hal.h"
+
+extern UART_HandleTypeDef huart4;
 
 /* Register addresses = (register number - 1), per datasheet convention */
 #define REG_IR_METER_STATUS   0x0000u  /* IR1 */
@@ -71,15 +74,22 @@ K33_Status_t K33_Sensor_Init(void)
 K33_Status_t K33_ReadCO2(K33_CO2Reading_t *out)
 {
     if (out == NULL) { return K33_ERR_PARAM; }
-    uint8_t data[2];
-    uint16_t nbytes = 0;
-    K33_Status_t st = read_registers(0x04u, REG_IR_SPACE_CO2, 1u, data, sizeof(data), &nbytes);
-    if (st != K33_OK) { return st; }
-    if (nbytes != 2u) { return K33_ERR_LEN; }
 
-    out->raw = ((uint16_t)data[0] << 8) | data[1];
-    out->value = scale_co2(out->raw);
-    return K33_OK;
+    static const uint8_t req[7] = {0xFE, 0x44, 0x00, 0x08, 0x02, 0x9F, 0x25};
+    uint8_t resp[7] = {0};
+
+    __HAL_UART_FLUSH_DRREGISTER(&huart4);
+
+    if (HAL_UART_Transmit(&huart4, (uint8_t *)req, 7, 100) == HAL_OK) {
+        if (HAL_UART_Receive(&huart4, resp, 7, 200) == HAL_OK) {
+            if (resp[0] == 0xFE && resp[1] == 0x44) {
+                out->raw = ((uint16_t)resp[3] << 8) | resp[4];
+                out->value = (float)out->raw / 1000.0f; /* Scale factor for K33 CO2 30% sensor */
+                return K33_OK;
+            }
+        }
+    }
+    return K33_ERR_TIMEOUT;
 }
 
 K33_Status_t K33_ReadStatus(uint16_t *status_bits)
