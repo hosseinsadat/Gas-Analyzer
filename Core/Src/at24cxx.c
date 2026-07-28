@@ -26,32 +26,8 @@ static uint8_t at24_lock = 0;
   */
 bool at24_isConnected(void)
 {
-  #if (_EEPROM_USE_FREERTOS == 1)
-  if (i2cBusMutexHandle != NULL)
-  {
-    if (osMutexAcquire(i2cBusMutexHandle, 500) != osOK)
-    {
-      return false;
-    }
-  }
-  #endif
-
-  #if (_EEPROM_USE_WP_PIN==1)
-  HAL_GPIO_WritePin(_EEPROM_WP_GPIO,_EEPROM_WP_PIN,GPIO_PIN_SET);
-  #endif
-
-  bool res = false;
-  if (HAL_I2C_IsDeviceReady(&_EEPROM_I2C, _EEPROM_ADDRESS, 2, 100) == HAL_OK)
-    res = true;
-
-  #if (_EEPROM_USE_FREERTOS == 1)
-  if (i2cBusMutexHandle != NULL)
-  {
-    osMutexRelease(i2cBusMutexHandle);
-  }
-  #endif
-
-  return res;
+  uint8_t dummy = 0;
+  return at24_read(0x0000, &dummy, 1, 100);
 }
 
 /**
