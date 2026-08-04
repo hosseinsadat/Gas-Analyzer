@@ -514,7 +514,9 @@ void StartSensorTask_SPI(void *argument)
   /* USER CODE BEGIN StartSensorTask_SPI */
   /* Infinite loop */
 
+	osDelay(pdMS_TO_TICKS(100));
 
+	    EEPROM_Test();
 
 
 
@@ -525,15 +527,8 @@ void StartSensorTask_SPI(void *argument)
 
 	  //////////TEST EEPROM//////////////
 
-	  if (osMutexAcquire(sensorDataMutexHandle, 500) == osOK)
-	  	  	  	      {
-		  	  	  	  	  EEPROM_Test();
 
-
-	  	  	  	        osMutexRelease(sensorDataMutexHandle);
-	  	  	  	      }
-
-    osDelay(pdMS_TO_TICKS(5000));
+	          osDelay(pdMS_TO_TICKS(30000));
   }
   /* USER CODE END StartSensorTask_SPI */
 }

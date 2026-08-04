@@ -9,7 +9,7 @@ extern "C" {
 #include <stdbool.h>
 
 #define CALIB_MAGIC_NUMBER 0xCA1B2026
-#define EEPROM_CALIB_ADDR  0x0100
+#define EEPROM_CALIB_ADDR  0x0010U
 
 typedef struct {
     float raw_zero;
