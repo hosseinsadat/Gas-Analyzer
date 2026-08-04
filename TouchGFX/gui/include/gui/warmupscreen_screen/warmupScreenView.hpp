@@ -9,9 +9,9 @@ class warmupScreenView : public warmupScreenViewBase
 public:
     warmupScreenView();
     virtual ~warmupScreenView() {}
-    virtual void setupScreen();
-    virtual void tearDownScreen();
- //   void handleTickEvent() override;
+    virtual void setupScreen() override;
+    virtual void tearDownScreen() override;
+    virtual void handleTickEvent() override;
 
 protected:
 };

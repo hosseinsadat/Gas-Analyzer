@@ -26,8 +26,31 @@ static uint8_t at24_lock = 0;
   */
 bool at24_isConnected(void)
 {
-  uint8_t dummy = 0;
-  return at24_read(0x0000, &dummy, 1, 100);
+  #if (_EEPROM_USE_FREERTOS == 1)
+  if (i2cBusMutexHandle != NULL)
+  {
+    if (osMutexAcquire(i2cBusMutexHandle, 500) != osOK)
+    {
+      return false;
+    }
+  }
+  #endif
+
+  bool res = false;
+  /* Standard HAL check with 10 trials and 150ms timeout to bypass any transient busy-flag glitches */
+  if (HAL_I2C_IsDeviceReady(&_EEPROM_I2C, _EEPROM_ADDRESS, 10, 150) == HAL_OK)
+  {
+    res = true;
+  }
+
+  #if (_EEPROM_USE_FREERTOS == 1)
+  if (i2cBusMutexHandle != NULL)
+  {
+    osMutexRelease(i2cBusMutexHandle);
+  }
+  #endif
+
+  return res;
 }
 
 /**
