@@ -4,7 +4,6 @@
 
 ResetScreenView::ResetScreenView()
 {
-
 }
 
 void ResetScreenView::setupScreen()
@@ -16,8 +15,13 @@ void ResetScreenView::tearDownScreen()
 {
     ResetScreenViewBase::tearDownScreen();
 }
-void ResetScreenView::resetFactory(){
-#ifndef SIMULATOR
 
-#endif
+void ResetScreenView::resetFactory()
+{
+    // Trigger the calibration reset to defaults on the Model via the Presenter
+    presenter->triggerFactoryReset();
+
+    // After reset is complete, transition back to the ScreenSpanValue screen
+    // so the UI immediately refreshes and shows the restored default values!
+    application().gotoScreenSpanValueScreenNoTransition();
 }

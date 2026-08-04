@@ -186,11 +186,74 @@ void Model::tick()
     modelListener->onCO2CalDataUpdated(1000, 10.0f);
 #endif
 }
+
 bool Model::getEEPROMStatus()
 {
 #ifndef SIMULATOR
     return EEPROM_OK;
 #else
     return true;
+#endif
+}
+
+float Model::getCO2Offset()
+{
+#ifndef SIMULATOR
+    return g_CalibData.co2.offset;
+#else
+    return 0.0f;
+#endif
+}
+
+float Model::getCO2Slope()
+{
+#ifndef SIMULATOR
+    return g_CalibData.co2.slope;
+#else
+    return 1.0f;
+#endif
+}
+
+float Model::getCOOffset()
+{
+#ifndef SIMULATOR
+    return g_CalibData.co.offset;
+#else
+    return 0.0f;
+#endif
+}
+
+float Model::getCOSlope()
+{
+#ifndef SIMULATOR
+    return g_CalibData.co.slope;
+#else
+    return 1.0f;
+#endif
+}
+
+float Model::getO2Offset()
+{
+#ifndef SIMULATOR
+    return g_CalibData.o2.offset;
+#else
+    return 0.0f;
+#endif
+}
+
+float Model::getO2Slope()
+{
+#ifndef SIMULATOR
+    return g_CalibData.o2.slope;
+#else
+    return 1.0f;
+#endif
+}
+
+void Model::resetFactoryCalib()
+{
+#ifndef SIMULATOR
+    Calib_ResetDefaults(&g_CalibData);
+    Calib_SaveToEEPROM(&g_CalibData);
 #endif
 }

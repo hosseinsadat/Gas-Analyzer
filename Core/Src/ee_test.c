@@ -7,70 +7,79 @@
 
 #include "ee_test.h"
 #include "at24cxx.h"
+#include <string.h>
+
+#if (_EEPROM_USE_FREERTOS == 1)
 #include "FreeRTOS.h"
 #include "task.h"
-#include <string.h>
-#include <stdio.h>
+#define ee_test_delay(x) vTaskDelay(pdMS_TO_TICKS(x))
+#else
+#include "main.h"
+#define ee_test_delay(x) HAL_Delay(x)
+#endif
 
-
-
+/* Safe, unused temporary test address on EEPROM far from the calibration sector to avoid overwrite */
+#define EEPROM_TEST_ADDR 0x0000
 
 void EEPROM_Test(void)
 {
-    uint8_t tx[32];
-    uint8_t rx[32];
+    uint8_t tx[4];
+    uint8_t rx[4];
+    uint8_t original[4];
 
-    for(uint8_t i=0;i<32;i++)
-        tx[i]=i;
+    /* Initialize buffers */
+    tx[0] = 0xAA;
+    tx[1] = 0x55;
+    tx[2] = 0x12;
+    tx[3] = 0x34;
 
-    memset(rx,0,sizeof(rx));
+    memset(rx, 0, sizeof(rx));
+    memset(original, 0, sizeof(original));
 
- //   printf("\r\n");
- //   printf("------ EEPROM TEST ------\r\n");
-
-    if(!at24_isConnected())
+    if (!at24_isConnected())
     {
- //       printf("EEPROM Not Found\r\n");
         EEPROM_OK = false;
-
         return;
     }
 
- //   printf("EEPROM Connected\r\n");
-    EEPROM_OK = true;
-
-    if(!at24_write(0x0000,tx,sizeof(tx),1000))
+    /* Save original content to restore later */
+    if (!at24_read(EEPROM_TEST_ADDR, original, sizeof(original), 1000))
     {
-   //     printf("Write Failed\r\n");
         EEPROM_OK = false;
-
         return;
     }
 
-    printf("Write OK\r\n");
-    EEPROM_OK = true;
-
-    /* Wait for the EEPROM's internal write cycle to complete (typically 10ms max) */
-    vTaskDelay(15);
-
-    if(!at24_read(0x0000,rx,sizeof(rx),1000))
+    /* Perform a dry-run safe write sequence */
+    if (!at24_write(EEPROM_TEST_ADDR, tx, sizeof(tx), 1000))
     {
-        printf("Read Failed\r\n");
         EEPROM_OK = false;
-
         return;
     }
 
-    printf("Read OK\r\n");
+    /* Wait for the EEPROM's internal write cycle to complete (typically 5-10ms max) */
+    ee_test_delay(15);
 
-    if(memcmp(tx,rx,sizeof(tx))==0)
+    /* Read back and compare */
+    if (!at24_read(EEPROM_TEST_ADDR, rx, sizeof(rx), 1000))
     {
-        printf("EEPROM PASS\r\n");
+        EEPROM_OK = false;
+        return;
+    }
+
+    /* Restore original data */
+    if (at24_write(EEPROM_TEST_ADDR, original, sizeof(original), 1000))
+    {
+        /* Wait for write cycle */
+        ee_test_delay(15);
+    }
+
+    /* Verify if written and read data match */
+    if (memcmp(tx, rx, sizeof(tx)) == 0)
+    {
         EEPROM_OK = true;
     }
     else
     {
-        printf("EEPROM FAIL\r\n");
         EEPROM_OK = false;
     }
 }

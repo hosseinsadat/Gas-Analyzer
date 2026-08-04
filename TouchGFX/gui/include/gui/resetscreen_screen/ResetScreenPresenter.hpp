@@ -27,6 +27,12 @@ public:
 
     virtual ~ResetScreenPresenter() {}
 
+    /* Expose Factory Reset logic to the View */
+    void triggerFactoryReset()
+    {
+        model->resetFactoryCalib();
+    }
+
 private:
     ResetScreenPresenter();
 
