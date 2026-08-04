@@ -11,7 +11,7 @@
 #define		_EEPROM_SIZE_KBIT		256       /* 256K (32,768 x 8) */
 #define		_EEPROM_I2C				hi2c2
 #define		_EEPROM_USE_FREERTOS		1
-#define		_EEPROM_ADDRESS			0xA0
+#define		_EEPROM_ADDRESS			0x50
 #define		_EEPROM_USE_WP_PIN		0
 #define		_EEPROM_USE_IWDG		0
 
