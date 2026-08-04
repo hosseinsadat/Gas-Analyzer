@@ -7,7 +7,8 @@
 
 #include "ee_test.h"
 #include "at24cxx.h"
-
+#include "FreeRTOS.h"
+#include "task.h"
 #include <string.h>
 #include <stdio.h>
 
@@ -50,7 +51,7 @@ void EEPROM_Test(void)
     EEPROM_OK = true;
 
     /* Wait for the EEPROM's internal write cycle to complete (typically 10ms max) */
-    osDelay(15);
+    vTaskDelay(15);
 
     if(!at24_read(0x0000,rx,sizeof(rx),1000))
     {
