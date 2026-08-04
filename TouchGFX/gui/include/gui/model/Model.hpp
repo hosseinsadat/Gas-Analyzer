@@ -28,6 +28,17 @@ public:
 	void resetO2Cal();
 	void resetCO2Cal();
 
+	// Active Calibration Parameter Getters
+	float getCO2Offset();
+	float getCO2Slope();
+	float getCOOffset();
+	float getCOSlope();
+	float getO2Offset();
+	float getO2Slope();
+
+	// Factory Reset Trigger
+	void resetFactoryCalib();
+
 protected:
 	ModelListener *modelListener;
 	float lastCoPpm;

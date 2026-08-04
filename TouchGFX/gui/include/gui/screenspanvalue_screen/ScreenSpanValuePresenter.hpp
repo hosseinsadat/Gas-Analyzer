@@ -27,6 +27,14 @@ public:
 
     virtual ~ScreenSpanValuePresenter() {}
 
+    /* Active Calibration Parameter Getters */
+    float getCO2Offset() { return model->getCO2Offset(); }
+    float getCO2Slope() { return model->getCO2Slope(); }
+    float getCOOffset() { return model->getCOOffset(); }
+    float getCOSlope() { return model->getCOSlope(); }
+    float getO2Offset() { return model->getO2Offset(); }
+    float getO2Slope() { return model->getO2Slope(); }
+
 private:
     ScreenSpanValuePresenter();
 
