@@ -23,16 +23,16 @@ void ScreenSpanValueView::setupScreen()
     float o2_slope   = presenter->getO2Slope();
 
     // Format active calibration parameters to the requested layout: OFS: [Offset] | SLP: [Slope]
-    // OFS formatted with %.3f, SLP formatted with %.4f
+    // OFS formatted with %+.3f (to explicitly print positive/negative sign), SLP formatted with %.4f
     char temp_buf[32];
 
-    snprintf(temp_buf, sizeof(temp_buf), "OFS: %.3f | SLP: %.4f", co2_offset, co2_slope);
+    snprintf(temp_buf, sizeof(temp_buf), "OFS: %+.3f | SLP: %.4f", co2_offset, co2_slope);
     touchgfx::Unicode::fromUTF8((const unsigned char*)temp_buf, co2_buffer, 32);
 
-    snprintf(temp_buf, sizeof(temp_buf), "OFS: %.3f | SLP: %.4f", co_offset, co_slope);
+    snprintf(temp_buf, sizeof(temp_buf), "OFS: %+.3f | SLP: %.4f", co_offset, co_slope);
     touchgfx::Unicode::fromUTF8((const unsigned char*)temp_buf, co_buffer, 32);
 
-    snprintf(temp_buf, sizeof(temp_buf), "OFS: %.3f | SLP: %.4f", o2_offset, o2_slope);
+    snprintf(temp_buf, sizeof(temp_buf), "OFS: %+.3f | SLP: %.4f", o2_offset, o2_slope);
     touchgfx::Unicode::fromUTF8((const unsigned char*)temp_buf, o2_buffer, 32);
 
     // Force a visual repaint of the updated text widgets
