@@ -15,6 +15,18 @@ extern "C" {
 
 #include "k33_modbus.h"
 
+/* Named constants for K33 Modbus Calibration */
+#define K33_MODBUS_ADDR_BROADCAST    0xFEu
+#define K33_REG_HR_ACK               0x0000u  /* HR1 - Acknowledgement register */
+#define K33_REG_HR_SPECIAL_CMD       0x0001u  /* HR2 - Special Command register */
+
+#define K33_CMD_CALIBRATE            0x7Cu
+#define K33_PARAM_CALIB_AIR          0x06u    /* Background / fresh-air calibration */
+#define K33_PARAM_CALIB_N2           0x07u    /* Nitrogen / zero calibration */
+
+#define K33_ACK_BIT_AIR              0x0020u  /* CI6 - bit 5 set on fresh-air calibration success */
+#define K33_ACK_BIT_N2               0x0040u  /* CI7 - bit 6 set on nitrogen zero calibration success */
+
 /* MeterStatus (IR1) bit meanings, datasheet Table 3 */
 typedef enum
 {
@@ -30,24 +42,18 @@ typedef enum
 /* Acknowledgement register (HR1) bit meanings, datasheet Table 4 */
 typedef enum
 {
-    K33_ACK_BACKGROUND_CAL_DONE = (1u << 5), /* CI6 */
-    K33_ACK_NITROGEN_ZERO_CAL_DONE = (1u << 6), /* CI7 - datasheet table labels this
-                                                     "nitrogen calibration" but the prose
-                                                     calibration-sequence example refers to
-                                                     command param 0x7 as "zero calibration" -
-                                                     the two are the same operation, datasheet
-                                                     is inconsistent on the name only. */
+    K33_ACK_BACKGROUND_CAL_DONE = K33_ACK_BIT_AIR,
+    K33_ACK_NITROGEN_ZERO_CAL_DONE = K33_ACK_BIT_N2,
 } K33_AckBit_t;
 
 typedef struct
 {
     uint16_t raw;     /* raw register value as returned by the sensor */
-    float    value;   /* scaled per K33_CO2_RAW_DIVISOR / K33_CO2_UNIT_IS_PERCENT - VERIFY on bench */
+    float    value;   /* scaled per K33_CO2_RAW_DIVISOR */
 } K33_CO2Reading_t;
 
 /**
- * @brief  Must be called after K33_Modbus_Init(). No sensor-specific state
- *         beyond the transport today, kept as a hook for future extension.
+ * @brief Must be called after K33_Modbus_Init().
  */
 K33_Status_t K33_Sensor_Init(void);
 
@@ -76,6 +82,16 @@ K33_Status_t K33_CheckCalibrationAck(K33_AckBit_t bit, bool *is_set);
 K33_Status_t K33_GetABCPeriod(uint16_t *hours);
 K33_Status_t K33_SetABCPeriod(uint16_t hours);
 static inline K33_Status_t K33_DisableABC(void) { return K33_SetABCPeriod(0); }
+
+/* Generic Modbus CRC-16 calculation function (Modbus polynomial 0xA001) */
+uint16_t computeModbusCRC16(const uint8_t *buf, uint16_t len);
+
+/* Transmits the given raw byte array over UART and returns received bytes */
+int sendModbusFrame(const uint8_t *tx_frame, uint16_t tx_len, uint8_t *rx_frame, uint16_t rx_cap, uint32_t timeout_ms);
+
+/* Senseair K33 Calibration Triggers */
+bool calibrateZeroAir(void);
+bool calibrateZeroN2(void);
 
 #ifdef __cplusplus
 }

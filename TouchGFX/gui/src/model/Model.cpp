@@ -9,6 +9,7 @@
 extern "C" {
 #include "gas_sensor.h"
 #include "slope_offset_calib.h"
+#include "k33_sensor.h"
 }
 
 extern RTC_HandleTypeDef hrtc;
@@ -108,6 +109,24 @@ void Model::calibrateCO2Span(float target_pct)
     g_CalibData.co2.ref_span = target_pct;
     Calib_CalculateSlopeOffset(&g_CalibData.co2);
     Calib_SaveToEEPROM(&g_CalibData);
+#endif
+}
+
+bool Model::calibrateK33ZeroAir()
+{
+#ifndef SIMULATOR
+    return calibrateZeroAir();
+#else
+    return true;
+#endif
+}
+
+bool Model::calibrateK33ZeroN2()
+{
+#ifndef SIMULATOR
+    return calibrateZeroN2();
+#else
+    return true;
 #endif
 }
 
