@@ -27,6 +27,16 @@ void CO2CalScreenPresenter::co2ResetCalibrate()
     model->resetCO2Cal();
 }
 
+bool CO2CalScreenPresenter::co2AirCalibrate()
+{
+    return model->calibrateK33ZeroAir();
+}
+
+bool CO2CalScreenPresenter::co2N2Calibrate()
+{
+    return model->calibrateK33ZeroN2();
+}
+
 void CO2CalScreenPresenter::activate()
 {
 

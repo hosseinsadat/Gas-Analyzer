@@ -1,4 +1,5 @@
 #include <gui/co2calscreen_screen/CO2CalScreenView.hpp>
+#include <touchgfx/Color.hpp>
 
 CO2CalScreenView::CO2CalScreenView()
     : myButtonCallback(this, &CO2CalScreenView::buttonClickHandler)
@@ -26,15 +27,69 @@ void CO2CalScreenView::tearDownScreen()
 
 void CO2CalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &btnN2)
+    if (&src == &btnAir)
     {
-        /* Perform CO2 zero calibration */
-        presenter->co2ZeroCalibrate();
+        /* Disable buttons while calibration is in progress to prevent duplicate requests */
+        btnAir.setTouchable(false);
+        btnN2.setTouchable(false);
+        btnAir.invalidate();
+        btnN2.invalidate();
+
+        /* Visual feedback: Yellow indicates calibration in progress */
+        txtSpan_1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 0));
+        txtSpan_1.invalidate();
+
+        /* Perform Senseair K33 Modbus fresh-air ("Zero in Air") calibration */
+        bool ok = presenter->co2AirCalibrate();
+
+        /* Visual feedback: Green indicates success, Red indicates failure */
+        if (ok)
+        {
+            txtSpan_1.setColor(touchgfx::Color::getColorFromRGB(0, 255, 0));
+        }
+        else
+        {
+            txtSpan_1.setColor(touchgfx::Color::getColorFromRGB(255, 0, 0));
+        }
+        txtSpan_1.invalidate();
+
+        /* Re-enable buttons upon completion or failure */
+        btnAir.setTouchable(true);
+        btnN2.setTouchable(true);
+        btnAir.invalidate();
+        btnN2.invalidate();
     }
-    else if (&src == &btnAir)
+    else if (&src == &btnN2)
     {
-        /* Perform CO2 air calibration (400 ppm = 0.04%) */
-        presenter->co2SpanCalibrate(0.04f);
+        /* Disable buttons while calibration is in progress to prevent duplicate requests */
+        btnAir.setTouchable(false);
+        btnN2.setTouchable(false);
+        btnAir.invalidate();
+        btnN2.invalidate();
+
+        /* Visual feedback: Yellow indicates calibration in progress */
+        txtSpan_1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 0));
+        txtSpan_1.invalidate();
+
+        /* Perform Senseair K33 Modbus nitrogen ("Zero in N2") calibration */
+        bool ok = presenter->co2N2Calibrate();
+
+        /* Visual feedback: Green indicates success, Red indicates failure */
+        if (ok)
+        {
+            txtSpan_1.setColor(touchgfx::Color::getColorFromRGB(0, 255, 0));
+        }
+        else
+        {
+            txtSpan_1.setColor(touchgfx::Color::getColorFromRGB(255, 0, 0));
+        }
+        txtSpan_1.invalidate();
+
+        /* Re-enable buttons upon completion or failure */
+        btnAir.setTouchable(true);
+        btnN2.setTouchable(true);
+        btnAir.invalidate();
+        btnN2.invalidate();
     }
     else if (&src == &btnSpanCO2)
     {

@@ -23,6 +23,10 @@ public:
 	void calibrateCO2Zero();
 	void calibrateCO2Span(float target_pct);
 
+	// Senseair K33 Modbus Calibration Triggers
+	bool calibrateK33ZeroAir();
+	bool calibrateK33ZeroN2();
+
 	// Reset Calibration
 	void resetCOCal();
 	void resetO2Cal();
