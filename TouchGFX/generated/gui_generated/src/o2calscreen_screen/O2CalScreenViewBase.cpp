@@ -8,8 +8,7 @@
 #include <texts/TextKeysAndLanguages.hpp>
 
 O2CalScreenViewBase::O2CalScreenViewBase() :
-    buttonCallback(this, &O2CalScreenViewBase::buttonCallbackHandler),
-    sliderValueConfirmedCallback(this, &O2CalScreenViewBase::sliderValueConfirmedCallbackHandler)
+    buttonCallback(this, &O2CalScreenViewBase::buttonCallbackHandler)
 {
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
 
@@ -21,19 +20,21 @@ O2CalScreenViewBase::O2CalScreenViewBase() :
     image1.setBitmap(touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_BACKGROUNDS_480X272_HIVE_ID));
     add(image1);
 
+    btn_increase_o2_span.setXY(394, 52);
+    btn_increase_o2_span.setBitmaps(touchgfx::Bitmap(BITMAP_UP_ID), touchgfx::Bitmap(BITMAP_UP_PRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
+    btn_increase_o2_span.setIconXY(97, 0);
+    add(btn_increase_o2_span);
+
+    btn_decrease_o2_span.setXY(394, 160);
+    btn_decrease_o2_span.setBitmaps(touchgfx::Bitmap(BITMAP_DOWN_ID), touchgfx::Bitmap(BITMAP_DOWN_PRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
+    btn_decrease_o2_span.setIconXY(97, 0);
+    add(btn_decrease_o2_span);
+
     btnBack.setXY(0, 0);
     btnBack.setBitmaps(touchgfx::Bitmap(BITMAP_HOME_BACK_BUTTON_ID), touchgfx::Bitmap(BITMAP_HOME_BACK_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
     btnBack.setIconXY(97, 0);
     btnBack.setAction(buttonCallback);
     add(btnBack);
-
-    sliderO2Span.setXY(408, 20);
-    sliderO2Span.setBitmaps(touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_TRACK_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_FILLER_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_ROUNDED_DARK_ID));
-    sliderO2Span.setupVerticalSlider(11, 16, 0, 0, 200);
-    sliderO2Span.setValueRange(0, 2500);
-    sliderO2Span.setValue(209);
-    sliderO2Span.setStopValueCallback(sliderValueConfirmedCallback);
-    add(sliderO2Span);
 
     txtO2rawValue.setXY(130, 18);
     txtO2rawValue.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
@@ -129,20 +130,5 @@ void O2CalScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
         //When btnBack clicked change screen to menuScreen
         //Go to menuScreen with no screen transition
         application().gotomenuScreenScreenNoTransition();
-    }
-}
-
-void O2CalScreenViewBase::sliderValueConfirmedCallbackHandler(const touchgfx::Slider& src, int value)
-{
-    if (&src == &sliderO2Span)
-    {
-        //Interaction1
-        //When sliderO2Span value confirmed execute C++ code
-        //Execute C++ code
-          Unicode::snprintfFloat(txtSpanO2Buffer, TXTSPANO2_SIZE, "%.1f", value/100.0);
-                txtSpanO2.setWildcard(txtSpanO2Buffer);
-                txtSpanO2.invalidate();
-                txtSpanO2.resizeToCurrentText();
-                txtSpanO2.invalidate();
     }
 }

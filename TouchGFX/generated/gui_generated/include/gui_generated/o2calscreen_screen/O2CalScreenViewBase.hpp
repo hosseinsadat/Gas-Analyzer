@@ -10,7 +10,6 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
-#include <touchgfx/containers/Slider.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
@@ -34,8 +33,9 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image image1;
+    touchgfx::ButtonWithIcon btn_increase_o2_span;
+    touchgfx::ButtonWithIcon btn_decrease_o2_span;
     touchgfx::ButtonWithIcon btnBack;
-    touchgfx::Slider sliderO2Span;
     touchgfx::TextAreaWithOneWildcard txtO2rawValue;
     touchgfx::TextAreaWithOneWildcard txtO2Measured;
     touchgfx::TextAreaWithOneWildcard txtSpanO2;
@@ -70,13 +70,11 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<O2CalScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
-    touchgfx::Callback<O2CalScreenViewBase, const touchgfx::Slider&, int> sliderValueConfirmedCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
-    void sliderValueConfirmedCallbackHandler(const touchgfx::Slider& src, int value);
 
 };
 

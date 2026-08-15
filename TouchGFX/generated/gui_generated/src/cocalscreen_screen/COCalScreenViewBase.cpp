@@ -8,8 +8,7 @@
 #include <texts/TextKeysAndLanguages.hpp>
 
 COCalScreenViewBase::COCalScreenViewBase() :
-    buttonCallback(this, &COCalScreenViewBase::buttonCallbackHandler),
-    sliderValueConfirmedCallback(this, &COCalScreenViewBase::sliderValueConfirmedCallbackHandler)
+    buttonCallback(this, &COCalScreenViewBase::buttonCallbackHandler)
 {
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
 
@@ -21,19 +20,21 @@ COCalScreenViewBase::COCalScreenViewBase() :
     image1.setBitmap(touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_BACKGROUNDS_480X272_HIVE_ID));
     add(image1);
 
+    btn_increase_co_span.setXY(394, 52);
+    btn_increase_co_span.setBitmaps(touchgfx::Bitmap(BITMAP_UP_ID), touchgfx::Bitmap(BITMAP_UP_PRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
+    btn_increase_co_span.setIconXY(97, 0);
+    add(btn_increase_co_span);
+
+    btn_decrease_co_span.setXY(394, 164);
+    btn_decrease_co_span.setBitmaps(touchgfx::Bitmap(BITMAP_DOWN_ID), touchgfx::Bitmap(BITMAP_DOWN_PRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
+    btn_decrease_co_span.setIconXY(97, 0);
+    add(btn_decrease_co_span);
+
     btnBack.setXY(0, 0);
     btnBack.setBitmaps(touchgfx::Bitmap(BITMAP_HOME_BACK_BUTTON_ID), touchgfx::Bitmap(BITMAP_HOME_BACK_BUTTON_PRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
     btnBack.setIconXY(97, 0);
     btnBack.setAction(buttonCallback);
     add(btnBack);
-
-    sliderCOSpan.setXY(408, 20);
-    sliderCOSpan.setBitmaps(touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_TRACK_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_FILLER_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_ROUNDED_DARK_ID));
-    sliderCOSpan.setupVerticalSlider(11, 16, 0, 0, 200);
-    sliderCOSpan.setValueRange(0, 2000);
-    sliderCOSpan.setValue(200);
-    sliderCOSpan.setStopValueCallback(sliderValueConfirmedCallback);
-    add(sliderCOSpan);
 
     txtCOrawValue.setXY(130, 18);
     txtCOrawValue.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
@@ -122,21 +123,5 @@ void COCalScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
         //When btnBack clicked change screen to menuScreen
         //Go to menuScreen with no screen transition
         application().gotomenuScreenScreenNoTransition();
-    }
-}
-
-void COCalScreenViewBase::sliderValueConfirmedCallbackHandler(const touchgfx::Slider& src, int value)
-{
-    if (&src == &sliderCOSpan)
-    {
-        //Interaction1
-        //When sliderCOSpan value confirmed execute C++ code
-        //Execute C++ code
-        
-                Unicode::snprintf(txtSpanCOBuffer, TXTSPANCO_SIZE, "%d", value);
-                txtSpanCO.setWildcard(txtSpanCOBuffer);
-                txtSpanCO.invalidate();
-                txtSpanCO.resizeToCurrentText();
-                txtSpanCO.invalidate();
     }
 }

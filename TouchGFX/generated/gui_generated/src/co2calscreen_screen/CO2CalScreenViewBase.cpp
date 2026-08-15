@@ -8,8 +8,7 @@
 #include <texts/TextKeysAndLanguages.hpp>
 
 CO2CalScreenViewBase::CO2CalScreenViewBase() :
-    buttonCallback(this, &CO2CalScreenViewBase::buttonCallbackHandler),
-    sliderValueConfirmedCallback(this, &CO2CalScreenViewBase::sliderValueConfirmedCallbackHandler)
+    buttonCallback(this, &CO2CalScreenViewBase::buttonCallbackHandler)
 {
     touchgfx::CanvasWidgetRenderer::setupBuffer(canvasBuffer, CANVAS_BUFFER_SIZE);
 
@@ -20,6 +19,16 @@ CO2CalScreenViewBase::CO2CalScreenViewBase() :
     image1.setXY(0, 0);
     image1.setBitmap(touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_BACKGROUNDS_480X272_HIVE_ID));
     add(image1);
+
+    btn_increase_co2_span.setXY(393, 44);
+    btn_increase_co2_span.setBitmaps(touchgfx::Bitmap(BITMAP_UP_ID), touchgfx::Bitmap(BITMAP_UP_PRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
+    btn_increase_co2_span.setIconXY(97, 0);
+    add(btn_increase_co2_span);
+
+    btn_decrease_co2_span.setXY(393, 152);
+    btn_decrease_co2_span.setBitmaps(touchgfx::Bitmap(BITMAP_DOWN_ID), touchgfx::Bitmap(BITMAP_DOWN_PRESSED_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID), touchgfx::Bitmap(BITMAP_ICON_THEME_IMAGES_ACTION_DONE_50_50_E8F6FB_SVG_ID));
+    btn_decrease_co2_span.setIconXY(97, 0);
+    add(btn_decrease_co2_span);
 
     txtCOMeasured.setXY(217, 42);
     txtCOMeasured.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
@@ -35,14 +44,6 @@ CO2CalScreenViewBase::CO2CalScreenViewBase() :
     btnBack.setIconXY(97, 0);
     btnBack.setAction(buttonCallback);
     add(btnBack);
-
-    sliderCo2Span.setXY(408, 20);
-    sliderCo2Span.setBitmaps(touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_TRACK_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_FILLER_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_ROUNDED_DARK_ID));
-    sliderCo2Span.setupVerticalSlider(11, 16, 0, 0, 200);
-    sliderCo2Span.setValueRange(0, 3000);
-    sliderCo2Span.setValue(1000);
-    sliderCo2Span.setStopValueCallback(sliderValueConfirmedCallback);
-    add(sliderCo2Span);
 
     txtSpan_2.setXY(38, 74);
     txtSpan_2.setColor(touchgfx::Color::getColorFromRGB(0, 240, 255));
@@ -129,20 +130,5 @@ void CO2CalScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton&
         //When btnBack clicked change screen to menuScreen
         //Go to menuScreen with no screen transition
         application().gotomenuScreenScreenNoTransition();
-    }
-}
-
-void CO2CalScreenViewBase::sliderValueConfirmedCallbackHandler(const touchgfx::Slider& src, int value)
-{
-    if (&src == &sliderCo2Span)
-    {
-        //Interaction1
-        //When sliderCo2Span value confirmed execute C++ code
-        //Execute C++ code
-          Unicode::snprintfFloat(txtSpanCO2Buffer, TXTSPANCO2_SIZE, "%.1f", value/100.0);
-                txtSpanCO2.setWildcard(txtSpanCO2Buffer);
-                txtSpanCO2.invalidate();
-                txtSpanCO2.resizeToCurrentText();
-                txtSpanCO2.invalidate();
     }
 }

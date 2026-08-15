@@ -9,9 +9,8 @@
 #include <gui/co2calscreen_screen/CO2CalScreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/Image.hpp>
-#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ButtonWithIcon.hpp>
-#include <touchgfx/containers/Slider.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <touchgfx/widgets/canvas/Line.hpp>
@@ -34,9 +33,10 @@ protected:
      */
     touchgfx::Box __background;
     touchgfx::Image image1;
+    touchgfx::ButtonWithIcon btn_increase_co2_span;
+    touchgfx::ButtonWithIcon btn_decrease_co2_span;
     touchgfx::TextAreaWithOneWildcard txtCOMeasured;
     touchgfx::ButtonWithIcon btnBack;
-    touchgfx::Slider sliderCo2Span;
     touchgfx::TextArea txtSpan_2;
     touchgfx::TextArea txtSpan_2_1;
     touchgfx::TextAreaWithOneWildcard txtCo2rawValue;
@@ -70,13 +70,11 @@ private:
      * Callback Declarations
      */
     touchgfx::Callback<CO2CalScreenViewBase, const touchgfx::AbstractButton&> buttonCallback;
-    touchgfx::Callback<CO2CalScreenViewBase, const touchgfx::Slider&, int> sliderValueConfirmedCallback;
 
     /*
      * Callback Handler Declarations
      */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
-    void sliderValueConfirmedCallbackHandler(const touchgfx::Slider& src, int value);
 
 };
 

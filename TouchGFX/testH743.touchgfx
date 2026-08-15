@@ -1574,6 +1574,36 @@
             "RelativeFilename": "__generated\\dark_theme_images_backgrounds_480x272_hive.png"
           },
           {
+            "Type": "ButtonWithIcon",
+            "Name": "btn_increase_co2_span",
+            "X": 393,
+            "Y": 44,
+            "Width": 60,
+            "Height": 60,
+            "Pressed": "up_pressed.png",
+            "Released": "up.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "btn_decrease_co2_span",
+            "X": 393,
+            "Y": 152,
+            "Width": 60,
+            "Height": 60,
+            "Pressed": "down_pressed.png",
+            "Released": "down.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
             "Type": "TextArea",
             "Name": "txtCOMeasured",
             "X": 217,
@@ -1606,23 +1636,6 @@
             "IconX": 97,
             "IconHeight": 50,
             "IconWidth": 50
-          },
-          {
-            "Type": "Slider",
-            "Name": "sliderCo2Span",
-            "X": 408,
-            "Y": 20,
-            "Width": 32,
-            "Height": 232,
-            "BackgroundUnselected": "__generated\\dark_theme_images_widgets_slider_vertical_thick_track_small.png",
-            "BackgroundSelected": "__generated\\dark_theme_images_widgets_slider_vertical_thick_filler_small.png",
-            "Indicator": "__generated\\dark_theme_images_widgets_slider_vertical_thick_rounded_dark.png",
-            "BackgroundX": 11,
-            "BackgroundY": 16,
-            "IndicatorMax": 200,
-            "ValueMax": 3000,
-            "InitValue": 1000,
-            "Preset": "dark_theme\\presets\\slider\\vertical\\thick\\small_rounded_dark.json"
           },
           {
             "Type": "TextArea",
@@ -1798,17 +1811,6 @@
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "menuScreen"
             }
-          },
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerSliderValueConfirmed",
-              "TriggerComponent": "sliderCo2Span"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "  Unicode::snprintfFloat(txtSpanCO2Buffer, TXTSPANCO2_SIZE, \"%.1f\", value/100.0);\r\n        txtSpanCO2.setWildcard(txtSpanCO2Buffer);\r\n        txtSpanCO2.invalidate();\r\n        txtSpanCO2.resizeToCurrentText();\r\n        txtSpanCO2.invalidate();"
-            }
           }
         ]
       },
@@ -1826,6 +1828,36 @@
           },
           {
             "Type": "ButtonWithIcon",
+            "Name": "btn_increase_co_span",
+            "X": 394,
+            "Y": 52,
+            "Width": 60,
+            "Height": 60,
+            "Pressed": "up_pressed.png",
+            "Released": "up.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "btn_decrease_co_span",
+            "X": 394,
+            "Y": 164,
+            "Width": 60,
+            "Height": 60,
+            "Pressed": "down_pressed.png",
+            "Released": "down.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
+            "Type": "ButtonWithIcon",
             "Name": "btnBack",
             "Width": 60,
             "Height": 60,
@@ -1836,23 +1868,6 @@
             "IconX": 97,
             "IconHeight": 50,
             "IconWidth": 50
-          },
-          {
-            "Type": "Slider",
-            "Name": "sliderCOSpan",
-            "X": 408,
-            "Y": 20,
-            "Width": 32,
-            "Height": 232,
-            "BackgroundUnselected": "__generated\\dark_theme_images_widgets_slider_vertical_thick_track_small.png",
-            "BackgroundSelected": "__generated\\dark_theme_images_widgets_slider_vertical_thick_filler_small.png",
-            "Indicator": "__generated\\dark_theme_images_widgets_slider_vertical_thick_rounded_dark.png",
-            "BackgroundX": 11,
-            "BackgroundY": 16,
-            "IndicatorMax": 200,
-            "ValueMax": 2000,
-            "InitValue": 200,
-            "Preset": "dark_theme\\presets\\slider\\vertical\\thick\\small_rounded_dark.json"
           },
           {
             "Type": "TextArea",
@@ -2031,17 +2046,6 @@
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "menuScreen"
             }
-          },
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerSliderValueConfirmed",
-              "TriggerComponent": "sliderCOSpan"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "\r\n        Unicode::snprintf(txtSpanCOBuffer, TXTSPANCO_SIZE, \"%d\", value);\r\n        txtSpanCO.setWildcard(txtSpanCOBuffer);\r\n        txtSpanCO.invalidate();\r\n        txtSpanCO.resizeToCurrentText();\r\n        txtSpanCO.invalidate();\r\n"
-            }
           }
         ]
       },
@@ -2059,6 +2063,36 @@
           },
           {
             "Type": "ButtonWithIcon",
+            "Name": "btn_increase_o2_span",
+            "X": 394,
+            "Y": 52,
+            "Width": 60,
+            "Height": 60,
+            "Pressed": "up_pressed.png",
+            "Released": "up.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
+            "Type": "ButtonWithIcon",
+            "Name": "btn_decrease_o2_span",
+            "X": 394,
+            "Y": 160,
+            "Width": 60,
+            "Height": 60,
+            "Pressed": "down_pressed.png",
+            "Released": "down.png",
+            "IconPressed": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconReleased": "__generated\\icon_theme_images_action_done_50_50_E8F6FB.svg.png",
+            "IconX": 97,
+            "IconHeight": 50,
+            "IconWidth": 50
+          },
+          {
+            "Type": "ButtonWithIcon",
             "Name": "btnBack",
             "Width": 60,
             "Height": 60,
@@ -2069,23 +2103,6 @@
             "IconX": 97,
             "IconHeight": 50,
             "IconWidth": 50
-          },
-          {
-            "Type": "Slider",
-            "Name": "sliderO2Span",
-            "X": 408,
-            "Y": 20,
-            "Width": 32,
-            "Height": 232,
-            "BackgroundUnselected": "__generated\\dark_theme_images_widgets_slider_vertical_thick_track_small.png",
-            "BackgroundSelected": "__generated\\dark_theme_images_widgets_slider_vertical_thick_filler_small.png",
-            "Indicator": "__generated\\dark_theme_images_widgets_slider_vertical_thick_rounded_dark.png",
-            "BackgroundX": 11,
-            "BackgroundY": 16,
-            "IndicatorMax": 200,
-            "ValueMax": 2500,
-            "InitValue": 209,
-            "Preset": "dark_theme\\presets\\slider\\vertical\\thick\\small_rounded_dark.json"
           },
           {
             "Type": "TextArea",
@@ -2281,17 +2298,6 @@
               "Type": "ActionGotoScreen",
               "ScreenTransitionType": "ScreenTransitionNone",
               "ActionComponent": "menuScreen"
-            }
-          },
-          {
-            "InteractionName": "Interaction1",
-            "Trigger": {
-              "Type": "TriggerSliderValueConfirmed",
-              "TriggerComponent": "sliderO2Span"
-            },
-            "Action": {
-              "Type": "ActionExecuteCode",
-              "Code": "  Unicode::snprintfFloat(txtSpanO2Buffer, TXTSPANO2_SIZE, \"%.1f\", value/100.0);\r\n        txtSpanO2.setWildcard(txtSpanO2Buffer);\r\n        txtSpanO2.invalidate();\r\n        txtSpanO2.resizeToCurrentText();\r\n        txtSpanO2.invalidate();"
             }
           }
         ]
