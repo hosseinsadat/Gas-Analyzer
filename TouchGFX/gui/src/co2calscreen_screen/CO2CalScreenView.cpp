@@ -2,7 +2,8 @@
 #include <touchgfx/Color.hpp>
 
 CO2CalScreenView::CO2CalScreenView()
-    : myButtonCallback(this, &CO2CalScreenView::buttonClickHandler)
+    : targetCo2Span(10.0f)
+    , myButtonCallback(this, &CO2CalScreenView::buttonClickHandler)
 {
 }
 
@@ -15,14 +16,39 @@ void CO2CalScreenView::setupScreen()
     btnAir.setAction(myButtonCallback);
     btnSpanCO2.setAction(myButtonCallback);
 
-    /* Initialize target span text from current slider value */
-    Unicode::snprintfFloat(txtSpanCO2Buffer, TXTSPANCO2_SIZE, "%.1f", (float)sliderCo2Span.getValue() / 100.0f);
-    txtSpanCO2.invalidate();
+    /* Initialize target span display */
+    updateSpanDisplay();
 }
 
 void CO2CalScreenView::tearDownScreen()
 {
     CO2CalScreenViewBase::tearDownScreen();
+}
+
+void CO2CalScreenView::increaseSpan()
+{
+    targetCo2Span += 0.5f;
+    if (targetCo2Span > 30.0f)
+    {
+        targetCo2Span = 30.0f;
+    }
+    updateSpanDisplay();
+}
+
+void CO2CalScreenView::decreaseSpan()
+{
+    targetCo2Span -= 0.5f;
+    if (targetCo2Span < 0.1f)
+    {
+        targetCo2Span = 0.1f;
+    }
+    updateSpanDisplay();
+}
+
+void CO2CalScreenView::updateSpanDisplay()
+{
+    Unicode::snprintfFloat(txtSpanCO2Buffer, TXTSPANCO2_SIZE, "%.1f", targetCo2Span);
+    txtSpanCO2.invalidate();
 }
 
 void CO2CalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
@@ -93,9 +119,8 @@ void CO2CalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
     }
     else if (&src == &btnSpanCO2)
     {
-        /* Retrieve target CO2 percentage from slider and perform span calibration */
-        float target_pct = (float)sliderCo2Span.getValue() / 100.0f;
-        presenter->co2SpanCalibrate(target_pct);
+        /* Perform CO2 span calibration with current target percentage */
+        presenter->co2SpanCalibrate(targetCo2Span);
     }
 }
 
