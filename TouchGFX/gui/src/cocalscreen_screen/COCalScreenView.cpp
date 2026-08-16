@@ -1,7 +1,8 @@
 #include <gui/cocalscreen_screen/COCalScreenView.hpp>
 
 COCalScreenView::COCalScreenView()
-    : myButtonCallback(this, &COCalScreenView::buttonClickHandler)
+    : targetCoSpan(1000.0f)
+    , myButtonCallback(this, &COCalScreenView::buttonClickHandler)
 {
 }
 
@@ -13,14 +14,39 @@ void COCalScreenView::setupScreen()
     btnN2.setAction(myButtonCallback);
     btnSpanCO.setAction(myButtonCallback);
 
-    /* Initialize target span text from current slider value */
-    Unicode::snprintf(txtSpanCOBuffer, TXTSPANCO_SIZE, "%d", sliderCOSpan.getValue());
-    txtSpanCO.invalidate();
+    /* Initialize target span display */
+    updateSpanDisplay();
 }
 
 void COCalScreenView::tearDownScreen()
 {
     COCalScreenViewBase::tearDownScreen();
+}
+
+void COCalScreenView::increaseSpan()
+{
+    targetCoSpan += 50.0f;
+    if (targetCoSpan > 2000.0f)
+    {
+        targetCoSpan = 2000.0f;
+    }
+    updateSpanDisplay();
+}
+
+void COCalScreenView::decreaseSpan()
+{
+    targetCoSpan -= 50.0f;
+    if (targetCoSpan < 10.0f)
+    {
+        targetCoSpan = 10.0f;
+    }
+    updateSpanDisplay();
+}
+
+void COCalScreenView::updateSpanDisplay()
+{
+    Unicode::snprintf(txtSpanCOBuffer, TXTSPANCO_SIZE, "%.0f", targetCoSpan);
+    txtSpanCO.invalidate();
 }
 
 void COCalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
@@ -32,9 +58,8 @@ void COCalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
     }
     else if (&src == &btnSpanCO)
     {
-        /* Retrieve target PPM from slider value and perform span calibration */
-        float target_ppm = (float)sliderCOSpan.getValue();
-        presenter->coSpanCalibrate(target_ppm);
+        /* Perform CO span calibration with current target PPM */
+        presenter->coSpanCalibrate(targetCoSpan);
     }
 }
 
