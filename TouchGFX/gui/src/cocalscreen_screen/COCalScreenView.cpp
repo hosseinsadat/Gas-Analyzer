@@ -14,6 +14,10 @@ void COCalScreenView::setupScreen()
     btnN2.setAction(myButtonCallback);
     btnSpanCO.setAction(myButtonCallback);
 
+    /* Connect increase and decrease span arrow buttons */
+    btn_increase_co_span.setAction(myButtonCallback);
+    btn_decrease_co_span.setAction(myButtonCallback);
+
     /* Initialize target span display */
     updateSpanDisplay();
 }
@@ -51,7 +55,15 @@ void COCalScreenView::updateSpanDisplay()
 
 void COCalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &btnN2)
+    if (&src == &btn_increase_co_span)
+    {
+        increaseSpan();
+    }
+    else if (&src == &btn_decrease_co_span)
+    {
+        decreaseSpan();
+    }
+    else if (&src == &btnN2)
     {
         /* Perform CO zero calibration */
         presenter->coZeroCalibrate();

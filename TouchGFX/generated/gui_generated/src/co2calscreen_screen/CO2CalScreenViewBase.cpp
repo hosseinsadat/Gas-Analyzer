@@ -101,6 +101,14 @@ CO2CalScreenViewBase::CO2CalScreenViewBase() :
     btnSpanCO2.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     add(btnSpanCO2);
 
+    btn_increase_co2_span.setXY(300, 110);
+    btn_increase_co2_span.setBitmaps(touchgfx::Bitmap(BITMAP_UP_ID), touchgfx::Bitmap(BITMAP_UP_PRESSED_ID));
+    add(btn_increase_co2_span);
+
+    btn_decrease_co2_span.setXY(350, 110);
+    btn_decrease_co2_span.setBitmaps(touchgfx::Bitmap(BITMAP_DOWN_ID), touchgfx::Bitmap(BITMAP_DOWN_PRESSED_ID));
+    add(btn_decrease_co2_span);
+
     dividerLine.setPosition(171, 104, 15, 102);
     dividerLinePainter.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     dividerLine.setPainter(dividerLinePainter);

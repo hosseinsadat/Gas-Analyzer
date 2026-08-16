@@ -44,6 +44,8 @@ protected:
     touchgfx::TextArea txtSpan_1;
     touchgfx::ButtonWithLabel btnN2;
     touchgfx::ButtonWithLabel btnSpanCO;
+    touchgfx::ButtonWithLabel btn_increase_co_span;
+    touchgfx::ButtonWithLabel btn_decrease_co_span;
     touchgfx::Line dividerLine;
     touchgfx::PainterRGB565 dividerLinePainter;
 

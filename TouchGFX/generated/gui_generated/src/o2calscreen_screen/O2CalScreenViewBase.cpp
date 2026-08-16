@@ -31,20 +31,20 @@ O2CalScreenViewBase::O2CalScreenViewBase() :
     sliderO2Span.setBitmaps(touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_TRACK_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_FILLER_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_ROUNDED_DARK_ID));
     sliderO2Span.setupVerticalSlider(11, 16, 0, 0, 200);
     sliderO2Span.setValueRange(0, 2500);
-    sliderO2Span.setValue(209);
+    sliderO2Span.setValue(2090);
     sliderO2Span.setStopValueCallback(sliderValueConfirmedCallback);
     add(sliderO2Span);
 
     txtO2rawValue.setXY(130, 18);
     txtO2rawValue.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     txtO2rawValue.setLinespacing(0);
-    Unicode::snprintf(txtO2rawValueBuffer, TXTO2RAWVALUE_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_W60L).getText());
+    Unicode::snprintf(txtO2rawValueBuffer, TXTO2RAWVALUE_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_0IJZ).getText());
     txtO2rawValue.setWildcard(txtO2rawValueBuffer);
     txtO2rawValue.resizeToCurrentText();
-    txtO2rawValue.setTypedText(touchgfx::TypedText(T___SINGLEUSE_DGF5));
+    txtO2rawValue.setTypedText(touchgfx::TypedText(T___SINGLEUSE_2RBO));
     add(txtO2rawValue);
 
-    txtO2Measured.setXY(212, 42);
+    txtO2Measured.setXY(217, 42);
     txtO2Measured.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     txtO2Measured.setLinespacing(0);
     Unicode::snprintf(txtO2MeasuredBuffer, TXTO2MEASURED_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_RMI8).getText());
@@ -53,28 +53,28 @@ O2CalScreenViewBase::O2CalScreenViewBase() :
     txtO2Measured.setTypedText(touchgfx::TypedText(T___SINGLEUSE_7SPB));
     add(txtO2Measured);
 
-    txtSpanO2.setXY(227, 124);
+    txtSpanO2.setXY(211, 116);
     txtSpanO2.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     txtSpanO2.setLinespacing(0);
-    Unicode::snprintf(txtSpanO2Buffer, TXTSPANO2_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_2RBO).getText());
+    Unicode::snprintf(txtSpanO2Buffer, TXTSPANO2_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_DGF5).getText());
     txtSpanO2.setWildcard(txtSpanO2Buffer);
     txtSpanO2.resizeToCurrentText();
-    txtSpanO2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ESBX));
+    txtSpanO2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_SIZB));
     add(txtSpanO2);
 
     txtSpan_2.setXY(38, 74);
     txtSpan_2.setColor(touchgfx::Color::getColorFromRGB(0, 240, 255));
     txtSpan_2.setLinespacing(0);
-    txtSpan_2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0IJZ));
+    txtSpan_2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0X9N));
     add(txtSpan_2);
 
     txtSpan_2_1.setXY(260, 74);
     txtSpan_2_1.setColor(touchgfx::Color::getColorFromRGB(0, 240, 255));
     txtSpan_2_1.setLinespacing(0);
-    txtSpan_2_1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_U0NS));
+    txtSpan_2_1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_LLDU));
     add(txtSpan_2_1);
 
-    txtSpan_1.setXY(103, 228);
+    txtSpan_1.setXY(131, 225);
     txtSpan_1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     txtSpan_1.setLinespacing(0);
     txtSpan_1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_ZZH6));
@@ -82,24 +82,32 @@ O2CalScreenViewBase::O2CalScreenViewBase() :
 
     btnN2.setXY(30, 164);
     btnN2.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_36_TINY_ROUNDED_ACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_36_TINY_ROUNDED_PRESSED_ID));
-    btnN2.setLabelText(touchgfx::TypedText(T___SINGLEUSE_KWWD));
+    btnN2.setLabelText(touchgfx::TypedText(T___SINGLEUSE_3JSD));
     btnN2.setLabelColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     btnN2.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     add(btnN2);
 
-    btnFreshAir.setXY(30, 112);
+    btnFreshAir.setXY(30, 110);
     btnFreshAir.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_36_TINY_ROUNDED_ACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_36_TINY_ROUNDED_PRESSED_ID));
-    btnFreshAir.setLabelText(touchgfx::TypedText(T___SINGLEUSE_3JSD));
+    btnFreshAir.setLabelText(touchgfx::TypedText(T___SINGLEUSE_2RSF));
     btnFreshAir.setLabelColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     btnFreshAir.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     add(btnFreshAir);
 
     btnSpanO2.setXY(252, 164);
     btnSpanO2.setBitmaps(touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_36_TINY_ROUNDED_ACTIVE_ID), touchgfx::Bitmap(BITMAP_ALTERNATE_THEME_IMAGES_WIDGETS_BUTTON_REGULAR_HEIGHT_36_TINY_ROUNDED_PRESSED_ID));
-    btnSpanO2.setLabelText(touchgfx::TypedText(T___SINGLEUSE_2RSF));
+    btnSpanO2.setLabelText(touchgfx::TypedText(T___SINGLEUSE_KWWD));
     btnSpanO2.setLabelColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     btnSpanO2.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     add(btnSpanO2);
+
+    btn_increase_o2_span.setXY(300, 110);
+    btn_increase_o2_span.setBitmaps(touchgfx::Bitmap(BITMAP_UP_ID), touchgfx::Bitmap(BITMAP_UP_PRESSED_ID));
+    add(btn_increase_o2_span);
+
+    btn_decrease_o2_span.setXY(350, 110);
+    btn_decrease_o2_span.setBitmaps(touchgfx::Bitmap(BITMAP_DOWN_ID), touchgfx::Bitmap(BITMAP_DOWN_PRESSED_ID));
+    add(btn_decrease_o2_span);
 
     dividerLine.setPosition(171, 104, 15, 102);
     dividerLinePainter.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
@@ -125,7 +133,7 @@ void O2CalScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
 {
     if (&src == &btnBack)
     {
-        //InteractionBack
+        //Interaction1
         //When btnBack clicked change screen to menuScreen
         //Go to menuScreen with no screen transition
         application().gotomenuScreenScreenNoTransition();
@@ -136,7 +144,7 @@ void O2CalScreenViewBase::sliderValueConfirmedCallbackHandler(const touchgfx::Sl
 {
     if (&src == &sliderO2Span)
     {
-        //Interaction1
+        //Interaction2
         //When sliderO2Span value confirmed execute C++ code
         //Execute C++ code
           Unicode::snprintfFloat(txtSpanO2Buffer, TXTSPANO2_SIZE, "%.1f", value/100.0);

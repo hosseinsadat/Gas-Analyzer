@@ -1,5 +1,6 @@
 #include <gui/model/Model.hpp>
 #include <gui/model/ModelListener.hpp>
+#include <cstdio>
 
 #ifndef SIMULATOR
 #include "sensor_data.h"
@@ -39,6 +40,9 @@ void Model::calibrateCOZero()
     g_CalibData.co.ref_zero = 0.0f;
     Calib_CalculateSlopeOffset(&g_CalibData.co);
     Calib_SaveToEEPROM(&g_CalibData);
+
+    printf("CO ZERO CAL: raw=%d, slope=%.6f, offset=%.6f\r\n",
+           raw, g_CalibData.co.slope, g_CalibData.co.offset);
 #endif
 }
 
@@ -53,6 +57,9 @@ void Model::calibrateCOSpan(float target_ppm)
     g_CalibData.co.ref_span = target_ppm;
     Calib_CalculateSlopeOffset(&g_CalibData.co);
     Calib_SaveToEEPROM(&g_CalibData);
+
+    printf("CO SPAN CAL: raw=%d, target=%.1f, slope=%.6f, offset=%.6f\r\n",
+           raw, target_ppm, g_CalibData.co.slope, g_CalibData.co.offset);
 #endif
 }
 
@@ -67,6 +74,9 @@ void Model::calibrateO2Zero()
     g_CalibData.o2.ref_zero = 0.0f;
     Calib_CalculateSlopeOffset(&g_CalibData.o2);
     Calib_SaveToEEPROM(&g_CalibData);
+
+    printf("O2 ZERO CAL: raw=%d, slope=%.6f, offset=%.6f\r\n",
+           raw, g_CalibData.o2.slope, g_CalibData.o2.offset);
 #endif
 }
 
@@ -81,6 +91,9 @@ void Model::calibrateO2Span(float target_pct)
     g_CalibData.o2.ref_span = target_pct;
     Calib_CalculateSlopeOffset(&g_CalibData.o2);
     Calib_SaveToEEPROM(&g_CalibData);
+
+    printf("O2 SPAN CAL: raw=%d, target=%.2f, slope=%.6f, offset=%.6f\r\n",
+           raw, target_pct, g_CalibData.o2.slope, g_CalibData.o2.offset);
 #endif
 }
 
@@ -95,6 +108,9 @@ void Model::calibrateCO2Zero()
     g_CalibData.co2.ref_zero = 0.0f;
     Calib_CalculateSlopeOffset(&g_CalibData.co2);
     Calib_SaveToEEPROM(&g_CalibData);
+
+    printf("CO2 ZERO CAL: raw=%d, slope=%.6f, offset=%.6f\r\n",
+           raw, g_CalibData.co2.slope, g_CalibData.co2.offset);
 #endif
 }
 
@@ -109,6 +125,9 @@ void Model::calibrateCO2Span(float target_pct)
     g_CalibData.co2.ref_span = target_pct;
     Calib_CalculateSlopeOffset(&g_CalibData.co2);
     Calib_SaveToEEPROM(&g_CalibData);
+
+    printf("CO2 SPAN CAL: raw=%d, target=%.2f, slope=%.6f, offset=%.6f\r\n",
+           raw, target_pct, g_CalibData.co2.slope, g_CalibData.co2.offset);
 #endif
 }
 

@@ -15,6 +15,10 @@ void O2CalScreenView::setupScreen()
     btnFreshAir.setAction(myButtonCallback);
     btnSpanO2.setAction(myButtonCallback);
 
+    /* Connect increase and decrease span arrow buttons */
+    btn_increase_o2_span.setAction(myButtonCallback);
+    btn_decrease_o2_span.setAction(myButtonCallback);
+
     /* Initialize target span display */
     updateSpanDisplay();
 }
@@ -52,7 +56,15 @@ void O2CalScreenView::updateSpanDisplay()
 
 void O2CalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &btnN2)
+    if (&src == &btn_increase_o2_span)
+    {
+        increaseSpan();
+    }
+    else if (&src == &btn_decrease_o2_span)
+    {
+        decreaseSpan();
+    }
+    else if (&src == &btnN2)
     {
         /* Perform O2 zero calibration */
         presenter->o2ZeroCalibrate();

@@ -16,6 +16,10 @@ void CO2CalScreenView::setupScreen()
     btnAir.setAction(myButtonCallback);
     btnSpanCO2.setAction(myButtonCallback);
 
+    /* Connect increase and decrease span arrow buttons */
+    btn_increase_co2_span.setAction(myButtonCallback);
+    btn_decrease_co2_span.setAction(myButtonCallback);
+
     /* Initialize target span display */
     updateSpanDisplay();
 }
@@ -53,7 +57,15 @@ void CO2CalScreenView::updateSpanDisplay()
 
 void CO2CalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &btnAir)
+    if (&src == &btn_increase_co2_span)
+    {
+        increaseSpan();
+    }
+    else if (&src == &btn_decrease_co2_span)
+    {
+        decreaseSpan();
+    }
+    else if (&src == &btnAir)
     {
         /* Disable buttons while calibration is in progress to prevent duplicate requests */
         btnAir.setTouchable(false);

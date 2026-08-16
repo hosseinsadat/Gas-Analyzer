@@ -197,6 +197,8 @@ bool calibrateZeroAir(void)
             if (read_rx[0] == K33_MODBUS_ADDR_BROADCAST && read_rx[1] == 0x03 && read_rx[2] == 0x02)
             {
                 uint16_t ack_val = ((uint16_t)read_rx[3] << 8) | read_rx[4];
+                printf("[K33 Ack Register]: 0x%04X | CI6 (0x0020) Check: %s\r\n",
+                       ack_val, (ack_val & K33_ACK_BIT_AIR) ? "SET" : "NOT SET");
                 if ((ack_val & K33_ACK_BIT_AIR) != 0)
                 {
                     success = true;
@@ -288,6 +290,8 @@ bool calibrateZeroN2(void)
             if (read_rx[0] == K33_MODBUS_ADDR_BROADCAST && read_rx[1] == 0x03 && read_rx[2] == 0x02)
             {
                 uint16_t ack_val = ((uint16_t)read_rx[3] << 8) | read_rx[4];
+                printf("[K33 Ack Register]: 0x%04X | CI7 (0x0040) Check: %s\r\n",
+                       ack_val, (ack_val & K33_ACK_BIT_N2) ? "SET" : "NOT SET");
                 if ((ack_val & K33_ACK_BIT_N2) != 0)
                 {
                     success = true;
@@ -355,21 +359,56 @@ K33_Status_t K33_ReadCO2(K33_CO2Reading_t *out)
 {
     if (out == NULL) { return K33_ERR_PARAM; }
 
-    static const uint8_t req[7] = {0xFE, 0x44, 0x00, 0x08, 0x02, 0x9F, 0x25};
-    uint8_t resp[7] = {0};
-
 #ifndef SIMULATOR
-    __HAL_UART_FLUSH_DRREGISTER(&huart4);
+    /* Modbus Function 04 (Read Input Register) for Space CO2 (IR4, address 0x0003) */
+    uint8_t req[6] = { K33_MODBUS_ADDR_BROADCAST, 0x04, 0x00, 0x03, 0x00, 0x01 };
+    uint16_t crc = computeModbusCRC16(req, 6);
+    uint8_t tx_frame[8];
+    memcpy(tx_frame, req, 6);
+    tx_frame[6] = (uint8_t)(crc & 0xFF);
+    tx_frame[7] = (uint8_t)((crc >> 8) & 0xFF);
 
-    if (HAL_UART_Transmit(&huart4, (uint8_t *)req, 7, 100) == HAL_OK) {
-        if (HAL_UART_Receive(&huart4, resp, 7, 200) == HAL_OK) {
-            if (resp[0] == 0xFE && resp[1] == 0x44) {
-                out->raw = ((uint16_t)resp[3] << 8) | resp[4];
-                out->value = (float)out->raw / 1000.0f;
+    uint8_t rx_frame[7] = {0};
+
+    int rx_bytes = sendModbusFrame(tx_frame, 8, rx_frame, 7, 300);
+    if (rx_bytes == 7 && rx_frame[0] == K33_MODBUS_ADDR_BROADCAST && rx_frame[1] == 0x04 && rx_frame[2] == 0x02)
+    {
+        int16_t signed_raw = (int16_t)(((uint16_t)rx_frame[3] << 8) | rx_frame[4]);
+
+        /* Fix 65432 issue: signed 16-bit negative baseline drift/noise near zero is clamped to 0 for raw display */
+        out->raw = (signed_raw < 0) ? 0 : (uint16_t)signed_raw;
+        out->value = (float)signed_raw / 1000.0f;
+        if (out->value < 0.0f) out->value = 0.0f;
+
+        printf("K33 RX (IR4): %02X %02X %02X %02X %02X %02X %02X | Signed Raw: %d -> Raw: %u | CO2: %.4f%%\r\n",
+               rx_frame[0], rx_frame[1], rx_frame[2], rx_frame[3], rx_frame[4], rx_frame[5], rx_frame[6],
+               signed_raw, out->raw, out->value);
+
+        return K33_OK;
+    }
+
+    /* Fallback to RAM read command 0xFE 0x44 if Function 04 times out */
+    static const uint8_t ram_req[7] = {0xFE, 0x44, 0x00, 0x08, 0x02, 0x9F, 0x25};
+    uint8_t ram_rx[7] = {0};
+
+    __HAL_UART_FLUSH_DRREGISTER(&huart4);
+    if (HAL_UART_Transmit(&huart4, (uint8_t *)ram_req, 7, 100) == HAL_OK) {
+        if (HAL_UART_Receive(&huart4, ram_rx, 7, 200) == HAL_OK) {
+            if (ram_rx[0] == 0xFE && ram_rx[1] == 0x44) {
+                int16_t signed_raw = (int16_t)(((uint16_t)ram_rx[3] << 8) | ram_rx[4]);
+                out->raw = (signed_raw < 0) ? 0 : (uint16_t)signed_raw;
+                out->value = (float)signed_raw / 1000.0f;
+                if (out->value < 0.0f) out->value = 0.0f;
+
+                printf("K33 RX (RAM): %02X %02X %02X %02X %02X %02X %02X | Signed Raw: %d -> Raw: %u | CO2: %.4f%%\r\n",
+                       ram_rx[0], ram_rx[1], ram_rx[2], ram_rx[3], ram_rx[4], ram_rx[5], ram_rx[6],
+                       signed_raw, out->raw, out->value);
+
                 return K33_OK;
             }
         }
     }
+
     return K33_ERR_TIMEOUT;
 #else
     out->raw = 1000;

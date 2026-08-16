@@ -45,6 +45,8 @@ protected:
     touchgfx::ButtonWithLabel btnAir;
     touchgfx::ButtonWithLabel btnN2;
     touchgfx::ButtonWithLabel btnSpanCO2;
+    touchgfx::ButtonWithLabel btn_increase_co2_span;
+    touchgfx::ButtonWithLabel btn_decrease_co2_span;
     touchgfx::Line dividerLine;
     touchgfx::PainterRGB565 dividerLinePainter;
 

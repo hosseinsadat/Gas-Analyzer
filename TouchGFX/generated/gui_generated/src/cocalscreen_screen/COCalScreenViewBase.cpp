@@ -31,50 +31,50 @@ COCalScreenViewBase::COCalScreenViewBase() :
     sliderCOSpan.setBitmaps(touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_TRACK_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_FILLER_SMALL_ID), touchgfx::Bitmap(BITMAP_DARK_THEME_IMAGES_WIDGETS_SLIDER_VERTICAL_THICK_ROUNDED_DARK_ID));
     sliderCOSpan.setupVerticalSlider(11, 16, 0, 0, 200);
     sliderCOSpan.setValueRange(0, 2000);
-    sliderCOSpan.setValue(200);
+    sliderCOSpan.setValue(1000);
     sliderCOSpan.setStopValueCallback(sliderValueConfirmedCallback);
     add(sliderCOSpan);
 
     txtCOrawValue.setXY(130, 18);
     txtCOrawValue.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     txtCOrawValue.setLinespacing(0);
-    Unicode::snprintf(txtCOrawValueBuffer, TXTCORAWVALUE_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_ZWQ7).getText());
+    Unicode::snprintf(txtCOrawValueBuffer, TXTCORAWVALUE_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_34VU).getText());
     txtCOrawValue.setWildcard(txtCOrawValueBuffer);
     txtCOrawValue.resizeToCurrentText();
-    txtCOrawValue.setTypedText(touchgfx::TypedText(T___SINGLEUSE_U6AG));
+    txtCOrawValue.setTypedText(touchgfx::TypedText(T___SINGLEUSE_22XJ));
     add(txtCOrawValue);
 
-    txtCOMeasured.setXY(193, 42);
+    txtCOMeasured.setXY(217, 42);
     txtCOMeasured.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     txtCOMeasured.setLinespacing(0);
-    Unicode::snprintf(txtCOMeasuredBuffer, TXTCOMEASURED_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_SIZB).getText());
+    Unicode::snprintf(txtCOMeasuredBuffer, TXTCOMEASURED_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_HL0Y).getText());
     txtCOMeasured.setWildcard(txtCOMeasuredBuffer);
     txtCOMeasured.resizeToCurrentText();
-    txtCOMeasured.setTypedText(touchgfx::TypedText(T___SINGLEUSE_0X9N));
+    txtCOMeasured.setTypedText(touchgfx::TypedText(T___SINGLEUSE_D6JZ));
     add(txtCOMeasured);
 
-    txtSpanCO.setXY(217, 124);
+    txtSpanCO.setXY(211, 116);
     txtSpanCO.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     txtSpanCO.setLinespacing(0);
-    Unicode::snprintf(txtSpanCOBuffer, TXTSPANCO_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_R4L3).getText());
+    Unicode::snprintf(txtSpanCOBuffer, TXTSPANCO_SIZE, "%s", touchgfx::TypedText(T___SINGLEUSE_ZWQ7).getText());
     txtSpanCO.setWildcard(txtSpanCOBuffer);
     txtSpanCO.resizeToCurrentText();
-    txtSpanCO.setTypedText(touchgfx::TypedText(T___SINGLEUSE_R07U));
+    txtSpanCO.setTypedText(touchgfx::TypedText(T___SINGLEUSE_U6AG));
     add(txtSpanCO);
 
     txtSpan_2.setXY(38, 74);
     txtSpan_2.setColor(touchgfx::Color::getColorFromRGB(0, 240, 255));
     txtSpan_2.setLinespacing(0);
-    txtSpan_2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_J9TL));
+    txtSpan_2.setTypedText(touchgfx::TypedText(T___SINGLEUSE_7SPB));
     add(txtSpan_2);
 
     txtSpan_2_1.setXY(260, 74);
     txtSpan_2_1.setColor(touchgfx::Color::getColorFromRGB(0, 240, 255));
     txtSpan_2_1.setLinespacing(0);
-    txtSpan_2_1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_C543));
+    txtSpan_2_1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_W60L));
     add(txtSpan_2_1);
 
-    txtSpan_1.setXY(103, 228);
+    txtSpan_1.setXY(131, 225);
     txtSpan_1.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
     txtSpan_1.setLinespacing(0);
     txtSpan_1.setTypedText(touchgfx::TypedText(T___SINGLEUSE_FIXP));
@@ -93,6 +93,14 @@ COCalScreenViewBase::COCalScreenViewBase() :
     btnSpanCO.setLabelColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
     btnSpanCO.setLabelColorPressed(touchgfx::Color::getColorFromRGB(255, 255, 255));
     add(btnSpanCO);
+
+    btn_increase_co_span.setXY(300, 110);
+    btn_increase_co_span.setBitmaps(touchgfx::Bitmap(BITMAP_UP_ID), touchgfx::Bitmap(BITMAP_UP_PRESSED_ID));
+    add(btn_increase_co_span);
+
+    btn_decrease_co_span.setXY(350, 110);
+    btn_decrease_co_span.setBitmaps(touchgfx::Bitmap(BITMAP_DOWN_ID), touchgfx::Bitmap(BITMAP_DOWN_PRESSED_ID));
+    add(btn_decrease_co_span);
 
     dividerLine.setPosition(171, 104, 15, 102);
     dividerLinePainter.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
@@ -118,7 +126,7 @@ void COCalScreenViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& 
 {
     if (&src == &btnBack)
     {
-        //InteractionBack
+        //Interaction1
         //When btnBack clicked change screen to menuScreen
         //Go to menuScreen with no screen transition
         application().gotomenuScreenScreenNoTransition();
@@ -129,11 +137,10 @@ void COCalScreenViewBase::sliderValueConfirmedCallbackHandler(const touchgfx::Sl
 {
     if (&src == &sliderCOSpan)
     {
-        //Interaction1
+        //Interaction2
         //When sliderCOSpan value confirmed execute C++ code
         //Execute C++ code
-        
-                Unicode::snprintf(txtSpanCOBuffer, TXTSPANCO_SIZE, "%d", value);
+          Unicode::snprintf(txtSpanCOBuffer, TXTSPANCO_SIZE, "%d", value);
                 txtSpanCO.setWildcard(txtSpanCOBuffer);
                 txtSpanCO.invalidate();
                 txtSpanCO.resizeToCurrentText();
