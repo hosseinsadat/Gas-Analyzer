@@ -16,9 +16,19 @@ public:
     /* Update view with latest O2 raw and calibrated values */
     void updateO2Values(int16_t raw_o2, float cal_o2);
 
+    /* Increase and decrease target span percentage */
+    void increaseSpan();
+    void decreaseSpan();
+
 private:
     /* Custom button callback handler for calibration buttons */
     void buttonClickHandler(const touchgfx::AbstractButton& src);
+
+    /* Helper function to update text display for target span */
+    void updateSpanDisplay();
+
+    /* Target O2 span percentage */
+    float targetO2Span;
 
     /* Callback instances */
     touchgfx::Callback<O2CalScreenView, const touchgfx::AbstractButton&> myButtonCallback;

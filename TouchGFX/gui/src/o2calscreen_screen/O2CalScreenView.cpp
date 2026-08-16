@@ -1,7 +1,8 @@
 #include <gui/o2calscreen_screen/O2CalScreenView.hpp>
 
 O2CalScreenView::O2CalScreenView()
-    : myButtonCallback(this, &O2CalScreenView::buttonClickHandler)
+    : targetO2Span(20.9f)
+    , myButtonCallback(this, &O2CalScreenView::buttonClickHandler)
 {
 }
 
@@ -14,14 +15,39 @@ void O2CalScreenView::setupScreen()
     btnFreshAir.setAction(myButtonCallback);
     btnSpanO2.setAction(myButtonCallback);
 
-    /* Initialize target span text from current slider value */
-    Unicode::snprintfFloat(txtSpanO2Buffer, TXTSPANO2_SIZE, "%.1f", (float)sliderO2Span.getValue() / 100.0f);
-    txtSpanO2.invalidate();
+    /* Initialize target span display */
+    updateSpanDisplay();
 }
 
 void O2CalScreenView::tearDownScreen()
 {
     O2CalScreenViewBase::tearDownScreen();
+}
+
+void O2CalScreenView::increaseSpan()
+{
+    targetO2Span += 0.1f;
+    if (targetO2Span > 25.0f)
+    {
+        targetO2Span = 25.0f;
+    }
+    updateSpanDisplay();
+}
+
+void O2CalScreenView::decreaseSpan()
+{
+    targetO2Span -= 0.1f;
+    if (targetO2Span < 0.1f)
+    {
+        targetO2Span = 0.1f;
+    }
+    updateSpanDisplay();
+}
+
+void O2CalScreenView::updateSpanDisplay()
+{
+    Unicode::snprintfFloat(txtSpanO2Buffer, TXTSPANO2_SIZE, "%.1f", targetO2Span);
+    txtSpanO2.invalidate();
 }
 
 void O2CalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
@@ -38,9 +64,8 @@ void O2CalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
     }
     else if (&src == &btnSpanO2)
     {
-        /* Retrieve target O2 percentage from slider and perform span calibration */
-        float target_pct = (float)sliderO2Span.getValue() / 100.0f;
-        presenter->o2SpanCalibrate(target_pct);
+        /* Perform O2 span calibration with current target percentage */
+        presenter->o2SpanCalibrate(targetO2Span);
     }
 }
 
