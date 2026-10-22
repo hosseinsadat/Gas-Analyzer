@@ -15,6 +15,8 @@ void CO2CalScreenView::setupScreen()
     btnN2.setAction(myButtonCallback);
     btnAir.setAction(myButtonCallback);
     btnSpanCO2.setAction(myButtonCallback);
+    btn_increase_co2_span.setAction(myButtonCallback);
+    btn_decrease_co2_span.setAction(myButtonCallback);
 
     /* Initialize target span display */
     updateSpanDisplay();
@@ -121,6 +123,14 @@ void CO2CalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
     {
         /* Perform CO2 span calibration with current target percentage */
         presenter->co2SpanCalibrate(targetCo2Span);
+    }
+    else if (&src == &btn_increase_co2_span)
+    {
+        increaseSpan();
+    }
+    else if (&src == &btn_decrease_co2_span)
+    {
+        decreaseSpan();
     }
 }
 

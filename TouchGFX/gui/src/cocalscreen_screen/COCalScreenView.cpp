@@ -13,6 +13,8 @@ void COCalScreenView::setupScreen()
     /* Set custom button handlers */
     btnN2.setAction(myButtonCallback);
     btnSpanCO.setAction(myButtonCallback);
+    btn_increase_co_span.setAction(myButtonCallback);
+    btn_decrease_co_span.setAction(myButtonCallback);
 
     /* Initialize target span display */
     updateSpanDisplay();
@@ -60,6 +62,14 @@ void COCalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
     {
         /* Perform CO span calibration with current target PPM */
         presenter->coSpanCalibrate(targetCoSpan);
+    }
+    else if (&src == &btn_increase_co_span)
+    {
+        increaseSpan();
+    }
+    else if (&src == &btn_decrease_co_span)
+    {
+        decreaseSpan();
     }
 }
 

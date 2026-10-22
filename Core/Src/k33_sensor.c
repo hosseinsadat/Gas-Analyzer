@@ -355,17 +355,23 @@ K33_Status_t K33_ReadCO2(K33_CO2Reading_t *out)
 {
     if (out == NULL) { return K33_ERR_PARAM; }
 
-    static const uint8_t req[7] = {0xFE, 0x44, 0x00, 0x08, 0x02, 0x9F, 0x25};
+#ifndef SIMULATOR
+    /* Documented Modbus RTU read: function 0x04 (Read Input Registers),
+     * IR4 = Space CO2, address 0x0003, quantity 1.
+     * Request:  FE 04 00 03 00 01 D5 C5
+     * Response: FE 04 02 <CO2 Hi> <CO2 Lo> <CRC Lo> <CRC Hi>  (7 bytes) */
+    static const uint8_t req[8] = {0xFE, 0x04, 0x00, 0x03, 0x00, 0x01, 0xD5, 0xC5};
     uint8_t resp[7] = {0};
 
-#ifndef SIMULATOR
     __HAL_UART_FLUSH_DRREGISTER(&huart4);
 
-    if (HAL_UART_Transmit(&huart4, (uint8_t *)req, 7, 100) == HAL_OK) {
-        if (HAL_UART_Receive(&huart4, resp, 7, 200) == HAL_OK) {
-            if (resp[0] == 0xFE && resp[1] == 0x44) {
+    if (HAL_UART_Transmit(&huart4, (uint8_t *)req, sizeof(req), 100) == HAL_OK) {
+        if (HAL_UART_Receive(&huart4, resp, sizeof(resp), 200) == HAL_OK) {
+            uint16_t rxCrc = computeModbusCRC16(resp, sizeof(resp) - 2u);
+            uint16_t gotCrc = (uint16_t)resp[sizeof(resp) - 2u] | ((uint16_t)resp[sizeof(resp) - 1u] << 8);
+            if (resp[0] == 0xFE && resp[1] == 0x04 && resp[2] == 0x02 && rxCrc == gotCrc) {
                 out->raw = ((uint16_t)resp[3] << 8) | resp[4];
-                out->value = (float)out->raw / 1000.0f;
+                out->value = scale_co2(out->raw);
                 return K33_OK;
             }
         }

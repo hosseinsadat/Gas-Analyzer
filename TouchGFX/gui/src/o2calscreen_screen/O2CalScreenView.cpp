@@ -14,6 +14,8 @@ void O2CalScreenView::setupScreen()
     btnN2.setAction(myButtonCallback);
     btnFreshAir.setAction(myButtonCallback);
     btnSpanO2.setAction(myButtonCallback);
+    btn_increase_o2_span.setAction(myButtonCallback);
+    btn_decrease_o2_span.setAction(myButtonCallback);
 
     /* Initialize target span display */
     updateSpanDisplay();
@@ -66,6 +68,14 @@ void O2CalScreenView::buttonClickHandler(const touchgfx::AbstractButton& src)
     {
         /* Perform O2 span calibration with current target percentage */
         presenter->o2SpanCalibrate(targetO2Span);
+    }
+    else if (&src == &btn_increase_o2_span)
+    {
+        increaseSpan();
+    }
+    else if (&src == &btn_decrease_o2_span)
+    {
+        decreaseSpan();
     }
 }
 

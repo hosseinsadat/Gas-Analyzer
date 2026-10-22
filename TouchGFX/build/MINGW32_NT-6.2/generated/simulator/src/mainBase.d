@@ -142,7 +142,6 @@ build/MINGW32_NT-6.2/generated/simulator/src/mainBase.o: \
  gui/include/gui/co2calscreen_screen/CO2CalScreenView.hpp \
  generated/gui_generated/include/gui_generated/co2calscreen_screen/CO2CalScreenViewBase.hpp \
  gui/include/gui/co2calscreen_screen/CO2CalScreenPresenter.hpp \
- ../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Slider.hpp \
  ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Line.hpp \
  gui/include/gui/cocalscreen_screen/COCalScreenView.hpp \
  generated/gui_generated/include/gui_generated/cocalscreen_screen/COCalScreenViewBase.hpp \
@@ -316,7 +315,6 @@ gui/include/gui/o2screen_screen/o2ScreenPresenter.hpp:
 gui/include/gui/co2calscreen_screen/CO2CalScreenView.hpp:
 generated/gui_generated/include/gui_generated/co2calscreen_screen/CO2CalScreenViewBase.hpp:
 gui/include/gui/co2calscreen_screen/CO2CalScreenPresenter.hpp:
-../Middlewares/ST/touchgfx/framework/include/touchgfx/containers/Slider.hpp:
 ../Middlewares/ST/touchgfx/framework/include/touchgfx/widgets/canvas/Line.hpp:
 gui/include/gui/cocalscreen_screen/COCalScreenView.hpp:
 generated/gui_generated/include/gui_generated/cocalscreen_screen/COCalScreenViewBase.hpp:
