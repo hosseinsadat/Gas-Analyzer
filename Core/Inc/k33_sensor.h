@@ -60,6 +60,10 @@ K33_Status_t K33_Sensor_Init(void);
 /** Read Space CO2 (IR4, function 04). */
 K33_Status_t K33_ReadCO2(K33_CO2Reading_t *out);
 
+/* Masks wrapped (negative-as-unsigned) values to 0 and clamps to K33_CO2_RAW_MAX. */
+uint16_t K33_MaskRawCO2(uint16_t raw);
+
+
 /** Read MeterStatus (IR1, function 04). Compare bits against K33_StatusBit_t. */
 K33_Status_t K33_ReadStatus(uint16_t *status_bits);
 

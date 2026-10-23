@@ -66,6 +66,15 @@ extern "C" {
 #define K33_CO2_RAW_DIVISOR        1000.0f   /* raw_register / DIVISOR = physical unit (verify!) */
 #define K33_CO2_UNIT_IS_PERCENT    1        /* 1 = result is %CO2, 0 = result is ppm */
 
+/* Sane physical ceiling for the raw register on a 30% sensor (30.000% * divisor). */
+#define K33_CO2_RAW_MAX            30000u
+/* raw >= 0x8000 reads as negative when treated as signed: near-zero noise that
+ * wrapped around as unsigned. It is masked to 0. */
+#define K33_CO2_RAW_NEGATIVE_MASK  0x8000u
+/* Startup hold: for this long after boot, a reading at/above K33_CO2_RAW_MAX is
+ * treated as start-up garbage (cell not flushed yet) and shown as 0 instead of 30%. */
+#define K33_CO2_STARTUP_HOLD_MS    15000u
+
 /* =====================================================================
  * 4) RTOS task (see k33_task.c)
  * ===================================================================== */

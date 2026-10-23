@@ -477,6 +477,7 @@ void StartSensorTask_UART(void *argument)
 
 	K33_Modbus_Init(&huart4);
 	K33_Sensor_Init();
+	uint32_t s_co2StartTick = osKernelGetTickCount();
 
 	    for (;;)
 	    {
@@ -485,6 +486,15 @@ void StartSensorTask_UART(void *argument)
 	        if (st == K33_OK)
 	        {
 	            float co2_pct = CO2_CalcPercent(co2_read.value);
+
+	            /* Startup hold: right after boot the cell is not flushed yet and the
+	             * sensor reports an at/over-ceiling value (shown as 30%). Hide it as 0. */
+	            if (((osKernelGetTickCount() - s_co2StartTick) < pdMS_TO_TICKS(K33_CO2_STARTUP_HOLD_MS)) &&
+	                (co2_read.raw >= K33_CO2_RAW_MAX))
+	            {
+	                co2_read.raw = 0u;
+	                co2_pct = 0.0f;
+	            }
 
 	            if (osMutexAcquire(sensorDataMutexHandle, pdMS_TO_TICKS(50)) == osOK)
 	            {

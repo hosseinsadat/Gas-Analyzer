@@ -346,6 +346,13 @@ static float scale_co2(uint16_t raw)
     return (float)raw / (float)K33_CO2_RAW_DIVISOR;
 }
 
+uint16_t K33_MaskRawCO2(uint16_t raw)
+{
+    if (raw >= K33_CO2_RAW_NEGATIVE_MASK) { return 0u; }
+    if (raw > K33_CO2_RAW_MAX)            { return (uint16_t)K33_CO2_RAW_MAX; }
+    return raw;
+}
+
 K33_Status_t K33_Sensor_Init(void)
 {
     return K33_OK;
@@ -370,7 +377,7 @@ K33_Status_t K33_ReadCO2(K33_CO2Reading_t *out)
             uint16_t rxCrc = computeModbusCRC16(resp, sizeof(resp) - 2u);
             uint16_t gotCrc = (uint16_t)resp[sizeof(resp) - 2u] | ((uint16_t)resp[sizeof(resp) - 1u] << 8);
             if (resp[0] == 0xFE && resp[1] == 0x04 && resp[2] == 0x02 && rxCrc == gotCrc) {
-                out->raw = ((uint16_t)resp[3] << 8) | resp[4];
+                out->raw = K33_MaskRawCO2(((uint16_t)resp[3] << 8) | resp[4]);
                 out->value = scale_co2(out->raw);
                 return K33_OK;
             }
@@ -407,7 +414,7 @@ K33_Status_t K33_ReadStatusAndCO2(uint16_t *status_bits, K33_CO2Reading_t *co2)
     if (nbytes != 8u) { return K33_ERR_LEN; }
 
     *status_bits = ((uint16_t)data[0] << 8) | data[1];
-    co2->raw     = ((uint16_t)data[6] << 8) | data[7];
+    co2->raw     = K33_MaskRawCO2(((uint16_t)data[6] << 8) | data[7]);
     co2->value   = scale_co2(co2->raw);
     return K33_OK;
 }
